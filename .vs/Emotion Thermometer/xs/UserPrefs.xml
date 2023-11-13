@@ -1,0 +1,35 @@
+﻿<Properties>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Emotional Thermometer Scripts/EmojiAppear.cs">
+    <Files>
+      <File FileName="Assets/Scripts/backBtnScript.cs" />
+      <File FileName="Assets/Scripts/MainMenuController.cs" />
+      <File FileName="Assets/Scripts/Scenario3SceneController.cs" />
+      <File FileName="Assets/Scripts/DrawingController.cs" />
+      <File FileName="Assets/Scripts/Emotional Thermometer Scripts/DragHandle.cs" />
+      <File FileName="Assets/Scripts/Emotional Thermometer Scripts/EmojiAppear.cs" Line="46" Column="6" />
+      <File FileName="Assets/Scripts/Firebase/DatabaseManager.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Emotion Thermometer">
+            <Node name="Assembly-CSharp">
+              <Node name="Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="Emotional Thermometer Scripts" expanded="True" />
+                  <Node name="Firebase" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
