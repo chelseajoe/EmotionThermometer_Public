@@ -55,7 +55,7 @@ namespace OpenAI
 
         private async void EndRecording()
         {
-            var openai = new OpenAIApi("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");
+            var openai = new OpenAIApi("REPLACE");
             message.text = "Transcripting...";
             
             #if !UNITY_WEBGL
