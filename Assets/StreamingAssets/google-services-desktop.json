@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "202012614615",
+    "firebase_url": "https://emotion-thermometer-default-rtdb.firebaseio.com",
+    "project_id": "emotion-thermometer",
+    "storage_bucket": "emotion-thermometer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202012614615:android:302a68dff3ff54f6753592",
+        "android_client_info": {
+          "package_name": "com.mit.selproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs6dPhryPO0VUROIXmBMf8Abd2W9DMibk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
