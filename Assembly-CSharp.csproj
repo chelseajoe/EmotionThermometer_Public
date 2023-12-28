@@ -56,17 +56,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/Scenario3SceneController.cs" />
+    <Compile Include="Assets/Scripts/Whisper/Whisper.cs" />
     <Compile Include="Assets/Scripts/Emotional Thermometer Scripts/DragHandle.cs" />
     <Compile Include="Assets/Scripts/Firebase/DatabaseManager.cs" />
+    <Compile Include="Assets/Scripts/PIDInput.cs" />
     <Compile Include="Assets/Scripts/MainMenuController.cs" />
     <Compile Include="Assets/Scripts/checkBtnScript.cs" />
     <Compile Include="Assets/Scripts/Emotional Thermometer Scripts/EmojiAppear.cs" />
-    <Compile Include="Assets/Whisper/Whisper.cs" />
+    <Compile Include="Assets/Scripts/TTS/AudioPlayer.cs" />
+    <Compile Include="Assets/Scripts/TTS/TTSModel.cs" />
     <Compile Include="Assets/Scripts/showNextScene.cs" />
     <Compile Include="Assets/Scripts/backBtnScript.cs" />
+    <Compile Include="Assets/Scripts/TTS/OpenAIWrapper.cs" />
     <Compile Include="Assets/Scripts/DrawingController.cs" />
+    <Compile Include="Assets/Scripts/Whisper/SaveWav.cs" />
     <Compile Include="Assets/Scripts/Emotional Thermometer Scripts/FirstTap.cs" />
-    <Compile Include="Assets/Whisper/SaveWav.cs" />
+    <Compile Include="Assets/Scripts/TTS/TextToSpeech.cs" />
+    <Compile Include="Assets/Scripts/TTS/TTSVoice.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

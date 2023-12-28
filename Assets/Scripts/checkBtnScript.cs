@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class checkBtnScript : MonoBehaviour
 {
+    public GameObject dh;
     public DragHandle dragHandle;
+    public bool pidIsEntered;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        dh = GameObject.Find("DragHandle");
+        pidIsEntered = false;
     }
 
     // Update is called once per frame
@@ -17,10 +22,19 @@ public class checkBtnScript : MonoBehaviour
         //print(dragHandle.ChosenEmoji);
     }
 
-     public void Confirm(){
+     public void ConfirmEmoji(){
+        dragHandle = dh.GetComponent<DragHandle>();
+
+        if (dragHandle == null)
+        {
+            print("No DragHandle in Scene");
+            return;
+        }
+
         Debug.Log("Confirm Emotion Selection");
         
 
+        // Edge Case Checking
         if (dragHandle.CurrentEmoji == "") {
             Debug.Log("No Emoji was Selected");
             return;
@@ -36,5 +50,11 @@ public class checkBtnScript : MonoBehaviour
 
         
     }
+
+    public void pidSumbit()
+    {
+        pidIsEntered = true;
+    }
+
 
 }
