@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,13 +12,31 @@ public class DragHandle : MonoBehaviour
     public string ChosenEmoji;
     public string CurrentEmoji;
     public DatabaseManager databaseManager;
+    public Canvas ASRCanvas;
+    public float dragSpeed = 1f;
+    public OpenAI.Whisper whisper;
+    private GameObject dbManager;
+    public string emotion;
+    public List<string> displayedStrategies;
+    public GameObject strategiesCanvas;
+    public GameObject strategiesDisplayed;
 
 
     public bool isConfirmed = false;
+    public bool canvasOn = false;
     bool sentMessage = false;
+
 
     private void Start()
     {
+        strategiesCanvas.gameObject.SetActive(false);
+        // ASR Canvas Starts Off
+        ASRCanvas.gameObject.SetActive(false);
+
+        // Get Database Manager
+        dbManager = GameObject.Find("DatabaseManager");
+        databaseManager = dbManager.GetComponent<DatabaseManager>();
+
         ChosenEmoji = "";
         CurrentEmoji = "";
     }
@@ -45,30 +64,124 @@ public class DragHandle : MonoBehaviour
         if (isConfirmed)
         {
             dragSpeed = 0;
-            this.enabled = false;
 
-            if (!sentMessage)
+            if (!canvasOn)
             {
-                // NOTE: send firebase message here
+                //Show ASR Canvas with slight delay
+                StartCoroutine(ShowASRCanvas());
+                canvasOn = true;
+            }
 
-                // convert emotion to lowercase for correct key
-                string emotion = ChosenEmoji.Substring(3).ToLower();
-                print(ChosenEmoji);
-                print(emotion);
-                GameObject dbManager = GameObject.Find("DatabaseManager");
-                DatabaseManager databaseManager = dbManager.GetComponent<DatabaseManager>();
-                databaseManager.EmotionIdentified(emotion, "this is a placeholder");
-                //databaseManager.
-                
-                sentMessage = true;
+
+            if (!sentMessage && whisper.finishedRecording)
+            {
+                //Show ASR Canvas with slight delay
+                StartCoroutine(ShowASRCanvas());
+
+                // NOTE: send firebase message here
+                SendEmotionFireBase();
+
+                // Get All Emotion Strategies
+                databaseManager.GetEmotionStrategies(databaseManager.userId, emotion);
+                //List<string> ListOfStrategies = databaseManager.emotionStrategies;
+
+                //displayedStrategies = ChooseRandomStrings(ListOfStrategies, 4);
+
+                //print("hi");
+                //ASRCanvas.gameObject.SetActive(false);
+
+                //print("bye");
+                //foreach (string str in displayedStrategies)
+                //{
+                //    print("strats: " + str);
+                //    strategiesDisplayed.GetComponent<TMP_Text>().text += str + "\n";
+                //}
+
+                //sentMessage = true;
+                //Hide ASR Canvas with slight delay
+                StartCoroutine(HideASRCanvas());
+
             }
 
         }
     }
 
+    private void SendEmotionFireBase()
+    {
+        // convert emotion to lowercase for correct key
+        emotion = ChosenEmoji.Substring(3).ToLower();
+        print(ChosenEmoji);
+        print(emotion);
+        //GameObject dbManager = GameObject.Find("DatabaseManager");
+        //DatabaseManager databaseManager = dbManager.GetComponent<DatabaseManager>();
+
+        // Send strategy message
+        string strategy = whisper.strategy;
+        print(strategy);
+        //databaseManager.EmotionIdentified(emotion, "this is a placeholder");
+        databaseManager.EmotionIdentified(emotion, strategy);
+        sentMessage = true;
+    }
+
+    IEnumerator ShowASRCanvas()
+    {
+       
+        yield return new WaitForSeconds(0.75f);
+        ASRCanvas.gameObject.SetActive(true);
+        //Debug.Log("Coroutine finished");
+    }
+
+    IEnumerator HideASRCanvas()
+    {
+
+        yield return new WaitForSeconds(0.75f);
+        ASRCanvas.gameObject.SetActive(false);
+        strategiesCanvas.gameObject.SetActive(true);
+
+        List<string> ListOfStrategies = databaseManager.emotionStrategies;
+
+        print("length: " + ListOfStrategies.Count);
+
+        displayedStrategies = ChooseRandomStrings(ListOfStrategies, 4);
 
 
-    public float dragSpeed = 1f;
+        foreach (string str in displayedStrategies)
+        {
+            print("strats: " + str);
+            strategiesDisplayed.GetComponent<TMP_Text>().text += "-  " + str + "\n\n";
+        }
+        //Debug.Log("Coroutine finished");
+    }
+
+    List<string> ChooseRandomStrings(List<string> originalList, int count)
+    {
+        List<string> selectedStrings = new List<string>();
+
+        if (originalList.Count <= count)
+        {
+            // If the original list is smaller than or equal to the requested count,
+            // simply return the entire original list.
+            return originalList;
+        }
+
+        // Randomly select strings from the original list
+        List<string> tempList = new List<string>(originalList);
+
+        for (int i = 0; i < count; i++)
+        {
+            
+            int randomIndex = Random.Range(0, tempList.Count);
+            selectedStrings.Add(tempList[randomIndex]);
+            tempList.RemoveAt(randomIndex);
+            print("selected: " + selectedStrings[i]);
+        }
+
+        return selectedStrings;
+
+
+    }
+
+
 
 
     void OnMouseDrag()

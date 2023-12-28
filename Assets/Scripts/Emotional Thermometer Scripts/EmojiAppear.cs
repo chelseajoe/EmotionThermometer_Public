@@ -51,7 +51,7 @@ public class EmojiAppear : MonoBehaviour
         {
             
             EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().fontSize = fontSize;
-            EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().color = new Color(myColor.r, myColor.g, myColor.b, 0.2f);
+            EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().color = new Color(myColor.r, myColor.g, myColor.b, 0.3f);
         }
 
         else if (MaskHandle.transform.position.y > EmojiTrigger.transform.position.y)
@@ -76,7 +76,7 @@ public class EmojiAppear : MonoBehaviour
             //dragHandle.CurrentEmoji = "";
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             //EmojiText.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
-            EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().color = new Color(myColor.r, myColor.g, myColor.b, 0.2f);
+            EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().color = new Color(myColor.r, myColor.g, myColor.b, 0.3f);
             EmojiText.transform.GetChild(0).GetComponent<TextMeshPro>().fontSize = fontSize;
 
         }

@@ -107,8 +107,8 @@ RectTransform:
   m_GameObject: {fileID: 7696163250750621193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8282601685846693409}
   m_Father: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e661ebe5dd8b840adad8ff434a7be94e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 292eb5e3898ad43969fdbe98cda51581, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -201,8 +201,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: backBtnScript, Assembly-CSharp
-        m_MethodName: goBack
+        m_TargetAssemblyTypeName: checkBtnScript, Assembly-CSharp
+        m_MethodName: ConfirmEmoji
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

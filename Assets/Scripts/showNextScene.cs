@@ -30,14 +30,30 @@ public class showNextScene : MonoBehaviour
     public Button jibo;
     public Button next;
 
-    
+    // Adding TTS
+    [SerializeField] private TTSManager tTSManager;
+
+    public float delayTime = 2.0f;
+
+
     void Start() {
+        
+
         StartCoroutine(textStreamerFunction(currentScene));
+
+        
     }
     void Update(){}
     
     // text streaming
     private IEnumerator textStreamerFunction(int currentScene){
+
+        // read scene TTS
+        tTSManager.SynthesizeAndPlay(sceneTexts[currentScene]);
+
+        // wait for model to synthesize text
+        yield return new WaitForSeconds(delayTime);
+
         int currentIndex = 0;
         string[] words = sceneTexts[currentScene].Split(' '); // split the scene text into words
         // show the words with delay
