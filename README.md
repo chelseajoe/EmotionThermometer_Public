@@ -45,7 +45,7 @@ To run the Emotion Thermometer Game locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/emotion-thermometer-game.git](https://github.com/chelseajoe/EmotionThermometer.git)https://github.com/chelseajoe/EmotionThermometer.git
+   git clone [https://github.com/your-username/emotion-thermometer-game.git]
    ```
 2. Firebase Database
    https://emotion-thermometer-default-rtdb.firebaseio.com/
