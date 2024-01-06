@@ -1,6 +1,6 @@
 # EmotionThermometer Project
 
-Welcome to the Emotion Thermometer Game repository! This project is a part of a research study aiming to understand and gauge childrens' emotional responses to different scenarios.
+Welcome to the EmotionThermometer Project repository! This project is a part of a research study aiming to understand and gauge childrens' emotional responses to different scenarios.
 
 ## Overview
 
