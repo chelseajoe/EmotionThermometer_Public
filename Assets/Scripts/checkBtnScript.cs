@@ -7,11 +7,13 @@ public class checkBtnScript : MonoBehaviour
     public GameObject dh;
     public DragHandle dragHandle;
     public bool pidIsEntered;
+    public bool confirmedOnce;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        confirmedOnce = false;
         dh = GameObject.Find("DragHandle");
         pidIsEntered = false;
     }
@@ -23,6 +25,10 @@ public class checkBtnScript : MonoBehaviour
     }
 
      public void ConfirmEmoji(){
+        if (confirmedOnce)
+        {
+            return;
+        }
         dragHandle = dh.GetComponent<DragHandle>();
 
         if (dragHandle == null)
@@ -42,6 +48,7 @@ public class checkBtnScript : MonoBehaviour
         else
         {
             dragHandle.isConfirmed = true;
+            confirmedOnce = true;
             
         }
 

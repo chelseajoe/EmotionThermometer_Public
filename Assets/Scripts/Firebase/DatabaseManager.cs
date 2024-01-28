@@ -21,8 +21,6 @@ public class DatabaseManager : MonoBehaviour
 
 
     private DatabaseReference reference;
-    //private FirebaseUser currentUser;
-    private string currentUser;
     public Dictionary<string, List<string>> emotionStrategyMap;
     public string userId;
     private int sessionIdx;
@@ -31,35 +29,10 @@ public class DatabaseManager : MonoBehaviour
     public List<string> emotionStrategies;
     
 
-    //public string userId;
-    //public UserData userData;
-
-    //private List<string> angryStrategies = new List<string>();
-    //private List<string> sadStrategies = new List<string>();
-    //private List<string> nervousStrategies = new List<string>();
-    //private List<string> happyStrategies = new List<string>();
-    //private List<string> calmStrategies = new List<string>(); 
-
-
-    private static DatabaseManager instance;
-    private FirebaseAuth auth;
-
     private void Awake()
     {
-        //if (instance == null)
-        //{
-        //    instance = this;
+        // NOTE: where Database Manager is set to dontdestroyonload
         DontDestroyOnLoad(gameObject);
-        //sessionIdx = 0;
-        //FetchUserData(userId);
-
-        //user
-
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 
     private void Start()
@@ -74,46 +47,6 @@ public class DatabaseManager : MonoBehaviour
         //auth = FirebaseAuth.DefaultInstance;
 
     }
-
-    //public void SignIn()
-    //{
-    //    string pID = userId;
-
-    //    // Check if the user with the given username exists
-    //    CheckUsernameAvailability(pID, userExists =>
-    //    {
-    //        if (userExists)
-    //        {
-    //            Debug.Log("User signed in successfully: " + pID);
-    //        }
-    //        else
-    //        {
-    //            CreateUser(pID);
-    //            Debug.Log("Creating User");
-    //        }
-    //    });
-    //}
-
-    //void CheckUsernameAvailability(string pID, System.Action<bool> callback)
-    //{
-    //    reference.Child("PIDs").Child(pID).GetValueAsync().ContinueWithOnMainThread(task =>
-    //    {
-    //        if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
-    //        {
-    //            callback(!task.Result.Exists);
-    //        }
-    //        else
-    //        {
-    //            callback(false);
-    //        }
-    //    });
-    //}
-
-    //void CreateUser(string pID)
-    //{
-    //    // Create a new user entry in the database
-    //    reference.Child("PIDs").Child(pID).SetValueAsync(true);
-    //}
 
 
     public void ReadStringInput()

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/chelseajoe/Desktop/PRG/Emotion Thermometer/Assembly-CSharp.csproj",
+      "projectUniqueName": "/Users/chelseajoe/Desktop/PRG/Safinah/Emotion Thermometer Files/EmotionThermometer/Assembly-CSharp.csproj",
       "projectName": "Assembly-CSharp",
-      "projectPath": "/Users/chelseajoe/Desktop/PRG/Emotion Thermometer/Assembly-CSharp.csproj",
+      "projectPath": "/Users/chelseajoe/Desktop/PRG/Safinah/Emotion Thermometer Files/EmotionThermometer/Assembly-CSharp.csproj",
       "packagesPath": "/Users/chelseajoe/.nuget/packages/",
-      "outputPath": "/Users/chelseajoe/Desktop/PRG/Emotion Thermometer/obj/",
+      "outputPath": "/Users/chelseajoe/Desktop/PRG/Safinah/Emotion Thermometer Files/EmotionThermometer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/chelseajoe/.nuget/NuGet/NuGet.Config"

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 // dynamically changing the image, scene text, and scene question of scenario 1
 
@@ -10,6 +11,7 @@ public class showNextScene : MonoBehaviour
 {
     public Image[] sceneImages;
     // static scenes
+    [System.NonSerialized]
     public string[] sceneTexts = 
     {
         "Jessica is playing on the swings at recess. She is with her best friend. As she is swinging, Jessica slips off and falls to the ground. Her eyes fill with tears, and she starts to cry.",
@@ -18,6 +20,7 @@ public class showNextScene : MonoBehaviour
         "Hanna is working on an art project. She puts her hands on her head and takes a deep breath. She puts her head down and pushes her paper away."
     };
     public string[] sceneQuestions = {"How is Jessica feeling?", "How is Mark feeling?", "How does Ryan feel? How does he show it?", "How does Hanna feel about this art project? How does she show it?"};
+
     public float wordDelay = 0.1f;
     private int currentScene = 0;
 
@@ -29,12 +32,12 @@ public class showNextScene : MonoBehaviour
 
     public Button jibo;
     public Button next;
+ 
 
     // Adding TTS
     [SerializeField] private TTSManager tTSManager;
-
     public float delayTime = 2.0f;
-
+    public bool jiboButtonIsClicked = false;
 
     void Start() {
         
@@ -69,6 +72,10 @@ public class showNextScene : MonoBehaviour
 
     // onclick of the "next" button
     public void nextScene(){
+        // NOTE: TEMPORARY Until Scenes are finalized
+        //SceneManager.LoadScene("Scenario3");
+
+        // ORIGINAL
         next.gameObject.SetActive(false); // hide "next" button
         jibo.gameObject.SetActive(false); // hide "jibo" button
         // hide the prev image and show the next
@@ -89,6 +96,10 @@ public class showNextScene : MonoBehaviour
 
     // onclick of the "jibo" button
     public void jiboQuestion(){
+        //if (jiboButtonIsClicked)
+        //    return;
+
+        //jiboButtonIsClicked = true;
         StartCoroutine(questionStreamerFunction(currentScene));
     }
     // question streaming

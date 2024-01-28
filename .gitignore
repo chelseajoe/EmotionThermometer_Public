@@ -2,3 +2,5 @@ Library/
 Assets/Firebase/Plugins/
 .env
 .DS_Store
+Logs/
+Temp/

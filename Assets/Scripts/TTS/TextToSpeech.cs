@@ -21,6 +21,7 @@ public class TTSManager : MonoBehaviour
 
         Debug.Log("Trying to synthesize " + text);
         byte[] audioData = await openAIWrapper.RequestTextToSpeech(text, model, voice, speed);
+        print("AUDIO DATA----" + audioData);
         if (audioData != null)
         {
             Debug.Log("Playing audio.");

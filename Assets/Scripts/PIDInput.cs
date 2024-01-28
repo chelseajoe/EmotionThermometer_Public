@@ -9,19 +9,20 @@ public class PIDInput : MonoBehaviour
     public TMP_InputField inputField;
     public checkBtnScript checkBtn;
     private GameObject dbManager;
-    // Start is called before the first frame update
+
     void Start()
     {
+        // NOTE: where DatabaseManager is searched for 
         dbManager = GameObject.Find("DatabaseManager");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (checkBtn.pidIsEntered)
         {
             dbManager.GetComponent<DatabaseManager>().userId = inputField.text;
             dbManager.GetComponent<DatabaseManager>().ReadStringInput();
+
         }
     }
 }

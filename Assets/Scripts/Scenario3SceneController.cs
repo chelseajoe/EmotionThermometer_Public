@@ -18,7 +18,8 @@ public class Scenario3SceneController : MonoBehaviour
         "scenario3 scene4 text"
     };
     public string[] sceneQuestions = {"Draw a picture to show what they should do.", "scenario3 scene2 question", "scenario3 scene3 question", "scenario3 scene4 question"};
-    public float wordDelay = 0.1f;
+    public float wordDelay = 0.2f;
+
     private int currentScene = 0;
 
     [SerializeField]  
@@ -31,7 +32,12 @@ public class Scenario3SceneController : MonoBehaviour
     // public Button next;
     public Button drawBtn;
 
-    
+    // Adding TTS
+    [SerializeField] private TTSManager tTSManager;
+    public float delayTime = 2.0f;
+    public bool jiboButtonIsClicked = false;
+
+
     void Start() {
         StartCoroutine(textStreamerFunction(currentScene));
     }
@@ -39,6 +45,13 @@ public class Scenario3SceneController : MonoBehaviour
     
     // text streaming
     private IEnumerator textStreamerFunction(int currentScene){
+
+        // read scene TTS
+        tTSManager.SynthesizeAndPlay(sceneTexts[currentScene]);
+
+        // wait for model to synthesize text
+        yield return new WaitForSeconds(delayTime);
+
         int currentIndex = 0;
         string[] words = sceneTexts[currentScene].Split(' '); // split the scene text into words
         // show the words with delay
@@ -79,6 +92,11 @@ public class Scenario3SceneController : MonoBehaviour
 
     // onclick of the "jibo" button
     public void jiboQuestion(){
+        if (jiboButtonIsClicked)
+            return;
+
+        jiboButtonIsClicked = true;
+
         StartCoroutine(questionStreamerFunction(currentScene));
     }
     // question streaming

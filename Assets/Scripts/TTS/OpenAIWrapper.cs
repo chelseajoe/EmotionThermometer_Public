@@ -12,6 +12,7 @@ public class TTSPayload
     public string voice;
     public string response_format;
     public float speed;
+    
 }
 
 public class OpenAIWrapper : MonoBehaviour
@@ -21,10 +22,13 @@ public class OpenAIWrapper : MonoBehaviour
     private TTSVoice voice = TTSVoice.Alloy;
     private float speed = 1f;
     private readonly string outputFormat = "mp3";
+    public bool unSuccessful;
+
 
     private void Start()
     {
-        openAIKey = "openai_key";
+        unSuccessful = false;
+        openAIKey = "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";
     }
     public async Task<byte[]> RequestTextToSpeech(string text)
     {
@@ -51,8 +55,13 @@ public class OpenAIWrapper : MonoBehaviour
 
         if (httpResponse.IsSuccessStatusCode)
         {
+            //unSuccessful = false;
             return response;
         }
+        //unSuccessful = true;
+        Debug.Log("Try again");
+        return await RequestTextToSpeech(text);
+        
         Debug.Log("Error: " + httpResponse.StatusCode);
         return null;
     }

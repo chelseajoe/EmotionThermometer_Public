@@ -4,6 +4,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class DragHandle : MonoBehaviour
 {
@@ -19,7 +21,9 @@ public class DragHandle : MonoBehaviour
     public string emotion;
     public List<string> displayedStrategies;
     public GameObject strategiesCanvas;
+    public GameObject noPIDCanvas;
     public GameObject strategiesDisplayed;
+
 
 
     public bool isConfirmed = false;
@@ -29,13 +33,28 @@ public class DragHandle : MonoBehaviour
 
     private void Start()
     {
+        noPIDCanvas.gameObject.SetActive(false);
         strategiesCanvas.gameObject.SetActive(false);
         // ASR Canvas Starts Off
         ASRCanvas.gameObject.SetActive(false);
 
-        // Get Database Manager
+
+        // NOTE: Locating DatabaseManager which should hopefully exist
         dbManager = GameObject.Find("DatabaseManager");
         databaseManager = dbManager.GetComponent<DatabaseManager>();
+
+        // NOTE: Commented out If else statement for when DatabaseManager does not exist -- pop up and redirect to PID Screen
+        //if (dbManager == null)
+        //{
+        //    // Redirect back to Enter PID screen
+        //    StartCoroutine(ShowPIDCanvas());
+           
+        //}
+        //else
+        //{
+        //    // Get the DatabaseManager component from the existing GameObject
+        //    databaseManager = dbManager.GetComponent<DatabaseManager>();
+        //}
 
         ChosenEmoji = "";
         CurrentEmoji = "";
@@ -121,6 +140,16 @@ public class DragHandle : MonoBehaviour
         //databaseManager.EmotionIdentified(emotion, "this is a placeholder");
         databaseManager.EmotionIdentified(emotion, strategy);
         sentMessage = true;
+    }
+
+    IEnumerator ShowPIDCanvas()
+    {
+
+        Debug.Log("No DatabaseManager in scene -- redirecting to enter PID Scene");
+        noPIDCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Enter PID");
+
     }
 
     IEnumerator ShowASRCanvas()
