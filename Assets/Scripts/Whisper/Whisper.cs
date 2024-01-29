@@ -26,7 +26,7 @@ namespace OpenAI
         private bool isRecording;
         private float time;
         private string apiKey;
-        public string strategy;
+        public string childSpeech;
         public bool finishedRecording;
         public bool currentlyRecording;
         //private OpenAIApi openai = new OpenAIApi();
@@ -123,7 +123,7 @@ namespace OpenAI
 
             // redirect res.Text output to Firebase
             //finishedRecording = true;
-            strategy = res.Text;
+            childSpeech = res.Text;
             //print("strategy in whisper" + strategy);
 
         }

@@ -12,44 +12,83 @@ public class showNextScene : MonoBehaviour
     public Image[] sceneImages;
     // static scenes
     [System.NonSerialized]
-    public string[] sceneTexts = 
+    public string[] sceneTexts =
     {
         "Jessica is playing on the swings at recess. She is with her best friend. As she is swinging, Jessica slips off and falls to the ground. Her eyes fill with tears, and she starts to cry.",
         "Mark is going to a park with his family. They make plans to meet a friend there. When Mark gets to the park, the sun is shining and it's warm. Mark plays with his friends and smiles a lot.",
         "Ryan and Donnie are on a bike ride together. They ride by a baseball field. Ryan slams on his brakes. He hops off his bike and jumps up and down. Ryan asks Donnie to watch the game with him.",
         "Hanna is working on an art project. She puts her hands on her head and takes a deep breath. She puts her head down and pushes her paper away."
     };
-    public string[] sceneQuestions = {"How is Jessica feeling?", "How is Mark feeling?", "How does Ryan feel? How does he show it?", "How does Hanna feel about this art project? How does she show it?"};
+    public string[] sceneQuestions = { "How is Jessica feeling?", "How is Mark feeling?", "How does Ryan feel? How does he show it?", "How does Hanna feel about this art project? How does she show it?" };
 
     public float wordDelay = 0.1f;
     private int currentScene = 0;
 
-    [SerializeField]  
+    [SerializeField]
     private TMP_Text scenario2scene;
 
-    [SerializeField]  
+    [SerializeField]
     private TMP_Text scenario2question;
 
     public Button jibo;
     public Button next;
- 
+
 
     // Adding TTS
     [SerializeField] private TTSManager tTSManager;
     public float delayTime = 2.0f;
     public bool jiboButtonIsClicked = false;
 
+    // Adding ASR (recording)
+    public Canvas ASRCanvas;
+    public OpenAI.Whisper whisper;
+    public DatabaseManager databaseManager;
+    private GameObject dbManager;
+    bool sentMessage = false;
+    public bool canvasOn = false;
+    public bool recordButtonIsClicked = false;
+    
+
     void Start() {
-        
+
+        ASRCanvas.gameObject.SetActive(false);
+
+        // NOTE: Locating DatabaseManager which should hopefully exist
+        dbManager = GameObject.Find("DatabaseManager");
+        databaseManager = dbManager.GetComponent<DatabaseManager>();
 
         StartCoroutine(textStreamerFunction(currentScene));
 
-        
+
     }
-    void Update(){}
-    
+    void Update() {
+        //if (!canvasOn)
+        //{
+        //    //Show ASR Canvas with slight delay
+        //    StartCoroutine(ShowASRCanvas());
+        //    canvasOn = true;
+        //}
+
+
+        if (!sentMessage && whisper.finishedRecording)
+        {
+            //Show ASR Canvas with slight delay
+            StartCoroutine(ShowASRCanvas());
+
+            print("SENDING SPEECH");
+
+            // NOTE: send firebase message here
+            SendSpeechFireBase();
+
+            //Hide ASR Canvas with slight delay
+            StartCoroutine(HideASRCanvas());
+
+        }
+
+    }
+
     // text streaming
-    private IEnumerator textStreamerFunction(int currentScene){
+    private IEnumerator textStreamerFunction(int currentScene) {
 
         // read scene TTS
         tTSManager.SynthesizeAndPlay(sceneTexts[currentScene]);
@@ -60,7 +99,7 @@ public class showNextScene : MonoBehaviour
         int currentIndex = 0;
         string[] words = sceneTexts[currentScene].Split(' '); // split the scene text into words
         // show the words with delay
-        while (currentIndex < words.Length){
+        while (currentIndex < words.Length) {
             scenario2scene.text += words[currentIndex];
             scenario2scene.text += " ";
             currentIndex++;
@@ -71,7 +110,7 @@ public class showNextScene : MonoBehaviour
     }
 
     // onclick of the "next" button
-    public void nextScene(){
+    public void nextScene() {
         // NOTE: TEMPORARY Until Scenes are finalized
         //SceneManager.LoadScene("Scenario3");
 
@@ -94,12 +133,79 @@ public class showNextScene : MonoBehaviour
         StartCoroutine(textStreamerFunction(currentScene));
     }
 
+    public void record()
+    {
+        if (recordButtonIsClicked)
+            return;
+
+        recordButtonIsClicked = true;
+
+        StartCoroutine(ShowASRCanvas());
+
+        //if (!canvasOn)
+        //{
+        //    //Show ASR Canvas with slight delay
+        //    StartCoroutine(ShowASRCanvas());
+        //    canvasOn = true;
+        //}
+
+
+        //if (!sentMessage && whisper.finishedRecording)
+        //{
+        //    //Show ASR Canvas with slight delay
+        //    StartCoroutine(ShowASRCanvas());
+
+        //    print("SENDING SPEECH");
+
+        //    // NOTE: send firebase message here
+        //    SendSpeechFireBase();
+
+        //    //Hide ASR Canvas with slight delay
+        //    StartCoroutine(HideASRCanvas());
+
+        //}
+
+    }
+
+    IEnumerator ShowASRCanvas()
+    {
+
+        yield return new WaitForSeconds(0.75f);
+        ASRCanvas.gameObject.SetActive(true);
+        //Debug.Log("Coroutine finished");
+    }
+
+    IEnumerator HideASRCanvas()
+    {
+
+        yield return new WaitForSeconds(0.75f);
+        ASRCanvas.gameObject.SetActive(false);
+    }
+
+
+    private void SendSpeechFireBase()
+    {
+        // convert scenario number as key
+        int scenarioNumber = currentScene + 1; // increment by 1 since index #
+        string scenarioName = "Scenario " + scenarioNumber.ToString();
+
+        print(scenarioName);
+
+        // Send strategy message
+        string response = whisper.childSpeech;
+        print(response);
+        //databaseManager.EmotionIdentified(emotion, "this is a placeholder");
+        databaseManager.AddScenarioSpeech(scenarioName, response);
+        sentMessage = true;
+    }
+
+
     // onclick of the "jibo" button
     public void jiboQuestion(){
-        //if (jiboButtonIsClicked)
-        //    return;
+        if (jiboButtonIsClicked)
+            return;
 
-        //jiboButtonIsClicked = true;
+        jiboButtonIsClicked = true;
         StartCoroutine(questionStreamerFunction(currentScene));
     }
     // question streaming

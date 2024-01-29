@@ -215,6 +215,50 @@ public class DatabaseManager : MonoBehaviour
 
     }
 
+    public void AddScenarioSpeech(string scenarioName, string response)
+    {
+
+        // Get the reference to the list
+        DatabaseReference listReference = reference.Child(userId).Child(currentSessionKey).Child(scenarioName);
+
+        // Fetch the existing list
+        listReference.GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+
+                // Check if the list already exists
+                if (snapshot.Exists)
+                {
+                    // Get the existing list as a List<string>
+                    List<string> existingList = new List<string>();
+
+                    foreach (var childSnapshot in snapshot.Children)
+                    {
+                        existingList.Add(childSnapshot.Value.ToString());
+                    }
+
+                    // Add the new response to the list
+                    existingList.Add(response);
+
+                    // Set the updated list back to Firebase
+                    listReference.SetValueAsync(existingList);
+                }
+                else
+                {
+                    // If the list doesn't exist, create a new list with the response
+                    List<string> newList = new List<string> { response };
+                    listReference.SetValueAsync(newList);
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to fetch list data: " + task.Exception);
+            }
+        });
+    }
+
 
 
 

@@ -102,21 +102,7 @@ public class DragHandle : MonoBehaviour
 
                 // Get All Emotion Strategies
                 databaseManager.GetEmotionStrategies(databaseManager.userId, emotion);
-                //List<string> ListOfStrategies = databaseManager.emotionStrategies;
 
-                //displayedStrategies = ChooseRandomStrings(ListOfStrategies, 4);
-
-                //print("hi");
-                //ASRCanvas.gameObject.SetActive(false);
-
-                //print("bye");
-                //foreach (string str in displayedStrategies)
-                //{
-                //    print("strats: " + str);
-                //    strategiesDisplayed.GetComponent<TMP_Text>().text += str + "\n";
-                //}
-
-                //sentMessage = true;
                 //Hide ASR Canvas with slight delay
                 StartCoroutine(HideASRCanvas());
 
@@ -135,7 +121,7 @@ public class DragHandle : MonoBehaviour
         //DatabaseManager databaseManager = dbManager.GetComponent<DatabaseManager>();
 
         // Send strategy message
-        string strategy = whisper.strategy;
+        string strategy = whisper.childSpeech;
         print(strategy);
         //databaseManager.EmotionIdentified(emotion, "this is a placeholder");
         databaseManager.EmotionIdentified(emotion, strategy);
