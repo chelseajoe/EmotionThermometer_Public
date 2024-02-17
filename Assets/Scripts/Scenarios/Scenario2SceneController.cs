@@ -254,7 +254,7 @@ public class Scenario2SceneController : MonoBehaviour
 
     private async void SendRequest(string prompt)
     {
-        var openai = new OpenAIApi("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");
+        var openai = new OpenAIApi("KEY");
         var req = new CreateChatCompletionRequest
         {
             Model = "gpt-4",

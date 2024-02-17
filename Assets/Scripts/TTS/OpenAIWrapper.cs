@@ -28,7 +28,7 @@ public class OpenAIWrapper : MonoBehaviour
     private void Start()
     {
         unSuccessful = false;
-        openAIKey = "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";
+        openAIKey = "KEY";
     }
     public async Task<byte[]> RequestTextToSpeech(string text)
     {

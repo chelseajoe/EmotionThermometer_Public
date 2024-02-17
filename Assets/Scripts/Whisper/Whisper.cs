@@ -102,7 +102,7 @@ namespace OpenAI
             private async void EndRecording()
         {
             currentlyRecording = false;
-            var openai = new OpenAIApi("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");
+            var openai = new OpenAIApi("KEY");
             // message.text = "Transcripting...";
             recordText.text = "Loading...";
             //progressBar.fillAmount = time / duration;
