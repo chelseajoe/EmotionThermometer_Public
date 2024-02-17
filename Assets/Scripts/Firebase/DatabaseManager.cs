@@ -12,6 +12,7 @@ using Firebase.Extensions;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 //using System.Text.Json.Serialization;
 
@@ -23,11 +24,12 @@ public class DatabaseManager : MonoBehaviour
     private DatabaseReference reference;
     public Dictionary<string, List<string>> emotionStrategyMap;
     public string userId;
-    private int sessionIdx;
-    private string currentSessionKey;
-    int latestSessionNumber;
+    public int sessionIdx;
+    public string currentSessionKey;
+    public int latestSessionNumber;
     public List<string> emotionStrategies;
-    
+    public string loginTime;
+
 
     private void Awake()
     {
@@ -37,17 +39,66 @@ public class DatabaseManager : MonoBehaviour
 
     private void Start()
     {
-        
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
-            FirebaseApp app = FirebaseApp.DefaultInstance;
-            reference = FirebaseDatabase.DefaultInstance.RootReference;
+            //FirebaseApp app = FirebaseApp.DefaultInstance;
+            //reference = FirebaseDatabase.DefaultInstance.RootReference;
+            //print("getting firebase reference");
+            if (task.IsCompleted && !task.IsFaulted)
+            {
+                FirebaseApp app = FirebaseApp.DefaultInstance;
+                reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+                // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
+            }
+            else
+            {
+                // Handle the error if Firebase initialization fails
+                Debug.LogError("Firebase initialization failed: " + task.Exception);
+            }
 
         });
+
+
         //auth = FirebaseAuth.DefaultInstance;
 
     }
 
+
+
+    public void ReInitializeDatabase()
+    {
+        StartCoroutine(InitializeFirebaseAndContinue());
+    }
+
+    private IEnumerator InitializeFirebaseAndContinue()
+    {
+        Task<Firebase.DependencyStatus> dependencyStatusTask = FirebaseApp.CheckAndFixDependenciesAsync();
+
+        yield return new WaitUntil(() => dependencyStatusTask.IsCompleted);
+
+        if (dependencyStatusTask.Result == Firebase.DependencyStatus.Available)
+        {
+            print("Firebase initialization successful");
+
+            FirebaseApp app = FirebaseApp.DefaultInstance;
+            reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+            // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                FetchUserData(userId);
+                StartCoroutine(CreateSession());
+            }
+        }
+        else
+        {
+            // Handle the error if Firebase initialization fails
+            Debug.LogError("Firebase initialization failed: " + dependencyStatusTask.Exception);
+        }
+    }
 
     public void ReadStringInput()
     {
@@ -110,6 +161,11 @@ public class DatabaseManager : MonoBehaviour
     // get all data to find latest session
     private void FetchUserData(string userId)
     {
+        print("fetching");
+        if (reference == null)
+        {
+            print("reference is null");
+        }
         reference.Child(userId).GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
             {
@@ -186,7 +242,8 @@ public class DatabaseManager : MonoBehaviour
         sessionIdx = latestSessionNumber + 1;
         if (userId != null)
         {
-            string loginTime = DateTime.Now.ToString();
+            loginTime = DateTime.Now.ToString();
+            loginTime = loginTime.Replace("/", "-"); // Replace slashes with underscores - firebase pathing issues with images, used for consistency
 
             currentSessionKey = "Session " + sessionIdx.ToString();
             //currentSessionKey = sessionKey;

@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
-      "hash": "1928201773c3995f2424df494bd70181166f0549"
+      "hash": "f7f501c076f27a12a2cbb2fa1235a106ce7b16e3"
     },
     "com.unity.2d.animation": {
       "version": "9.0.4",
@@ -168,7 +168,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.21",
+      "version": "2.0.22",
       "depth": 0,
       "source": "registry",
       "dependencies": {

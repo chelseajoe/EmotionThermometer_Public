@@ -28,7 +28,7 @@ public class OpenAIWrapper : MonoBehaviour
     private void Start()
     {
         unSuccessful = false;
-        openAIKey = "";
+        openAIKey = "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";
     }
     public async Task<byte[]> RequestTextToSpeech(string text)
     {
@@ -60,6 +60,8 @@ public class OpenAIWrapper : MonoBehaviour
         }
         //unSuccessful = true;
         Debug.Log("Try again");
+
+        // recursive call since firsts run doesn't always work for openai request
         return await RequestTextToSpeech(text);
         
         Debug.Log("Error: " + httpResponse.StatusCode);

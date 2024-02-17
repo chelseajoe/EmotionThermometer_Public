@@ -14,6 +14,7 @@ namespace OpenAI
         [SerializeField] private Image progressBar;
         [SerializeField] private Button stopButton;
         [SerializeField] private GameObject text;
+        
         private TMP_Text recordText;
         
         //[SerializeField] private Text message;
@@ -30,6 +31,10 @@ namespace OpenAI
         public bool finishedRecording;
         public bool currentlyRecording;
         //private OpenAIApi openai = new OpenAIApi();
+
+        // Debugging
+        [SerializeField] private GameObject outputText;
+        private TMP_Text output;
 
 
         private void Start()
@@ -48,6 +53,8 @@ namespace OpenAI
             // click button, end recording
             stopButton.onClick.AddListener(EndRecording);
 
+            // Debugging
+            //output = outputText.GetComponent<TMP_Text>();
 #if UNITY_WEBGL && !UNITY_EDITOR
             dropdown.options.Add(new Dropdown.OptionData("Microphone not supported on WebGL"));
 #else
@@ -87,6 +94,7 @@ namespace OpenAI
 
         IEnumerator EmptyProgressBar()
         {
+            //progressBar.color = Color.red;
             yield return new WaitForSeconds(1f);
             progressBar.fillAmount = 0;
         }
@@ -94,7 +102,7 @@ namespace OpenAI
             private async void EndRecording()
         {
             currentlyRecording = false;
-            var openai = new OpenAIApi("");
+            var openai = new OpenAIApi("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");
             // message.text = "Transcripting...";
             recordText.text = "Loading...";
             //progressBar.fillAmount = time / duration;
@@ -112,9 +120,16 @@ namespace OpenAI
                 Model = "whisper-1",
                 Language = "en"
             };
+            //progressBar.color = Color.blue;
             var res = await openai.CreateAudioTranscription(req);
 
+            // Debugging
+            //recordText.text = res.Text;
+            
+
             //progressBar.fillAmount = 0;
+            //progressBar.color = Color.red;
+            //return;
             StartCoroutine(EmptyProgressBar());
             finishedRecording = true;
             //message.text = res.Text;
@@ -150,5 +165,15 @@ namespace OpenAI
                 }
             }
         }
+
+        // Debugging
+        //IEnumerator ShowOutputCanvas()
+        //{
+
+        //    yield return new WaitForSeconds(0.5f);
+        //    OutputCanvas.gameObject.GetComponent<TMP_Text>.text
+        //    OutputCanvas.gameObject.SetActive(true);
+        //    //Debug.Log("Coroutine finished");
+        //}
     }
 }

@@ -40,4 +40,25 @@ public class MainMenuController : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
     }
 
+    public void scenario4Learn()
+    {
+        Debug.Log("going to scenario 4 - learn");
+        SceneManager.LoadScene("Scenario4");
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+    }
+
+    public void scenario5Learn()
+    {
+        Debug.Log("going to scenario 5 - learn");
+        SceneManager.LoadScene("Scenario5");
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+    }
+
+    public void scenario6Learn()
+    {
+        Debug.Log("going to scenario 6 - learn");
+        SceneManager.LoadScene("Scenario6");
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+    }
+
 }

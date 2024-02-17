@@ -157,11 +157,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 228.22
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 228.22
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 5634385775944817095, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -222,10 +234,14 @@ PrefabInstance:
     - target: {fileID: 8702801466079838659, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1587367298}
+      objectReference: {fileID: 772177704}
     - target: {fileID: 8702801466079838659, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: record
+      objectReference: {fileID: 0}
+    - target: {fileID: 8702801466079838659, guid: 61048e73e6d4742fdb0ea2fae3d88c6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ScenarioController, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -879,6 +895,84 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 3474301641011255958, guid: f68167b2d039145178f501851ee394e7, type: 3}
   m_PrefabInstance: {fileID: 746069941}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &772177703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772177705}
+  - component: {fileID: 772177704}
+  m_Layer: 0
+  m_Name: ScenarioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &772177704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772177703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55198c051ec3c4c758f033995353fa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneImages: []
+  sceneTexts:
+  - Jessica is playing on the swings at recess. She is with her best friend. As she
+    is swinging, Jessica slips off and falls to the ground. Her eyes fill with tears,
+    and she starts to cry.
+  sceneQuestions:
+  - How is Jessica feeling?
+  wordDelay: 0.1
+  scenario2scene: {fileID: 984780047}
+  scenario2question: {fileID: 1016572508}
+  jibo: {fileID: 1726146626}
+  next: {fileID: 19023701}
+  tTSManager: {fileID: 1209166630}
+  delayTime: 2
+  jiboButtonIsClicked: 0
+  ASRCanvas: {fileID: 746069947}
+  whisper: {fileID: 720057557}
+  databaseManager: {fileID: 0}
+  canvasOn: 0
+  recordButtonIsClicked: 0
+  correctResponse: Jessica is sad
+  childResponse: 
+  characterName: Jessica
+  feelingType: sad
+  jiboCorrectResponse: You are right! I have also thought that Jessica  is feeling
+    sad. Why do you think the character is feeling this emotion? What might they
+    be thinking?
+  jiboIncorrectResponse: That is an interesting way to look at it! I can see why
+    you might think that. Emotions can be a bit tricky sometimes, but we're here
+    to figure them out together! Let me share what I noticed about the character's
+    feelings in this story. They seem to be feeling sad. Why do you think the character
+    is feeling this emotion? What might they be thinking?
+  jiboNRResponse: Oh, I thought that Jessica is feeling sad. Why do you think the
+    character is feeling this emotion? What might they be thinking?
+--- !u!4 &772177705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772177703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.397648, y: -3.5160334, z: 429.64902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &984780047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
@@ -1082,6 +1176,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377502083}
   m_CullTransparentMesh: 1
+--- !u!1 &1556173055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556173057}
+  - component: {fileID: 1556173056}
+  m_Layer: 0
+  m_Name: Scenario2Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1556173056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556173055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9684a225e13e4eddb88270d0f106dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneImages: []
+  sceneQuestions:
+  - How is Jessica feeling?
+  wordDelay: 0.1
+  scenario2scene: {fileID: 984780047}
+  scenario2question: {fileID: 1016572508}
+  jibo: {fileID: 1726146626}
+  next: {fileID: 19023701}
+  tTSManager: {fileID: 1209166630}
+  delayTime: 2
+  jiboButtonIsClicked: 0
+  ASRCanvas: {fileID: 746069947}
+  whisper: {fileID: 720057557}
+  databaseManager: {fileID: 0}
+  canvasOn: 0
+  recordButtonIsClicked: 0
+  correctResponse: 
+  childResponse: 
+--- !u!4 &1556173057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556173055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.397648, y: -3.5160334, z: 429.64902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1587367298 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5521096826909233186, guid: 22e3d8f0d3ca14d719741332b3f83ecf, type: 3}
@@ -1371,6 +1527,10 @@ PrefabInstance:
     - target: {fileID: 1082789278071714380, guid: 22e3d8f0d3ca14d719741332b3f83ecf, type: 3}
       propertyPath: m_Name
       value: SceneController
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082789278071714380, guid: 22e3d8f0d3ca14d719741332b3f83ecf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2417752360463529714, guid: 22e3d8f0d3ca14d719741332b3f83ecf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2050,7 +2210,7 @@ PrefabInstance:
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1587367298}
+      objectReference: {fileID: 772177704}
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -2061,7 +2221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: showNextScene, Assembly-CSharp
+      value: ScenarioController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -2230,3 +2390,5 @@ SceneRoots:
   - {fileID: 1957519765}
   - {fileID: 746069941}
   - {fileID: 720057556}
+  - {fileID: 1556173057}
+  - {fileID: 772177705}

@@ -26,10 +26,29 @@ public class DragHandle : MonoBehaviour
 
 
 
+
     public bool isConfirmed = false;
     public bool canvasOn = false;
     bool sentMessage = false;
 
+
+    // Random PID Generation
+    private static System.Random random = new System.Random();
+    public GameObject dbManagerSpare;
+
+
+    private string GenerateRandomPID(int length)
+    {
+        const string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        char[] result = new char[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = characters[random.Next(characters.Length)];
+        }
+
+        return new string(result);
+    }
 
     private void Start()
     {
@@ -41,20 +60,51 @@ public class DragHandle : MonoBehaviour
 
         // NOTE: Locating DatabaseManager which should hopefully exist
         dbManager = GameObject.Find("DatabaseManager");
-        databaseManager = dbManager.GetComponent<DatabaseManager>();
+        //databaseManager = dbManager.GetComponent<DatabaseManager>();
 
-        // NOTE: Commented out If else statement for when DatabaseManager does not exist -- pop up and redirect to PID Screen
+       
+        if (dbManager == null)
+        {
+
+            dbManagerSpare = GameObject.Find("DatabaseManagerSpare");
+            // dbManager = new GameObject();
+
+            databaseManager = dbManagerSpare.GetComponent<DatabaseManager>();
+
+            if (databaseManager != null)
+            {
+                ChosenEmoji = "";
+                CurrentEmoji = "";
+                return;
+            }
+            databaseManager = dbManagerSpare.AddComponent<DatabaseManager>();
+
+            databaseManager.ReInitializeDatabase();
+
+            string randomPID = GenerateRandomPID(5);
+            databaseManager.userId = randomPID;
+
+        }
+        else
+        {
+            // Get the DatabaseManager component from the existing GameObject
+            databaseManager = dbManager.GetComponent<DatabaseManager>();
+        }
+
+        //NOTE: Commented out If else statement for when DatabaseManager does not exist-- pop up and redirect to PID Screen
         //if (dbManager == null)
         //{
         //    // Redirect back to Enter PID screen
         //    StartCoroutine(ShowPIDCanvas());
-           
+
         //}
         //else
         //{
         //    // Get the DatabaseManager component from the existing GameObject
         //    databaseManager = dbManager.GetComponent<DatabaseManager>();
         //}
+
+        // Database Manager not in scene -- create new one and generate random PID
 
         ChosenEmoji = "";
         CurrentEmoji = "";
