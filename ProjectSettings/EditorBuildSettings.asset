@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Enter PID.unity
+    guid: 247f68249f778435588314d9ebf420ab
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/ScenariosMenu.unity
+    guid: 7cb0806391d614ad0a7aae37114b3800
+  - enabled: 1
+    path: Assets/Scenes/Scenario2.unity
+    guid: d35d4373f57494bbda0c539c1deabcb6
+  - enabled: 1
+    path: Assets/Scenes/Scenario3.unity
+    guid: 69972dd4c25cf46fd99970f49102ab6d
+  - enabled: 1
+    path: Assets/Scenes/Drawing.unity
+    guid: 47a37cece57084f639fec81a2f0654c2
+  - enabled: 1
+    path: Assets/Scenes/Emotional Thermometer.unity
+    guid: 22fcdc80cf9dd4ae2a031ebd1c7dbd36
+  - enabled: 1
+    path: Assets/Scenes/Scenario4.unity
+    guid: 9c0bd0bf5b0da4043a8ff7f0494e293a
+  - enabled: 1
+    path: Assets/Scenes/Scenario5.unity
+    guid: 4486b6a653f364b42b65de4d18b7624d
+  - enabled: 1
+    path: Assets/Scenes/Scenario6.unity
+    guid: 16f473ee56f3d4810932c1bba672c393
+  m_configObjects: {}
