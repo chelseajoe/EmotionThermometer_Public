@@ -8,6 +8,8 @@ using UnityEngine.Networking;
 using OpenAI;
 //using UnityEditor.VersionControl;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using System;
 
 // dynamically changing the image, scene text, and scene question of scenario 1
 
@@ -71,50 +73,110 @@ public class ScenarioController : MonoBehaviour
     public string jiboNRResponse;
 
 
+    // tts with timestamps
+    public AudioClip audioClip;
+    public TextAsset jsonFile;
+    public AudioSource audioSource;
+
+
     void Start()
     {
         //correctResponse = "Jessica is sad";
 
         ASRCanvas.gameObject.SetActive(false);
 
-    // NOTE: Locating DatabaseManager which should hopefully exist
-    //dbManager = GameObject.Find("DatabaseManager");
-    //databaseManager = dbManager.GetComponent<DatabaseManager>();
+        // NOTE: Locating DatabaseManager which should hopefully exist
 
-    //NOTE: if dbManager does not exist, a dbmanagerspare should be created in emotional thermometer -since this is a temporary debug fix I will keep this brief
-    //    if (dbManager == null)
-    //    {
-
-
-    //        dbManagerSpare = GameObject.Find("DatabaseManagerSpare");
-    //        // dbManager = new GameObject();
-
-    //        databaseManager = dbManagerSpare.GetComponent<DatabaseManager>();
-
-    //        if (databaseManager != null)
-    //        {
-    //            return;
-    //        }
-    //        databaseManager = dbManagerSpare.AddComponent<DatabaseManager>();
-
-    //        databaseManager.ReInitializeDatabase();
-
-    //        string randomPID = GenerateRandomPID(5);
-    //        databaseManager.userId = randomPID;
-
-    //    }
-    //    else
-    //    {
-    //        // Get the DatabaseManager component from the existing GameObject
-    //        databaseManager = dbManager.GetComponent<DatabaseManager>();
-    //    }
-
-
-
-        StartCoroutine(textStreamerFunction(currentScene));
+        //StartCoroutine(textStreamerFunction(currentScene));
+        TextStreamAndAudio();
 
 
     }
+
+    // Function to stream text and audio based on JSON data
+    //public void TextStreamAndAudio(string audioFilePath, string jsonData)
+    public void TextStreamAndAudio()
+    {
+        // Check if both audioClip and jsonFile are assigned
+        if (audioClip == null || jsonFile == null)
+        {
+            Debug.LogError("Invalid audio clip or JSON file.");
+            return;
+        }
+
+        // Load the JSON data directly into a list of WordData
+        //List<WordData> wordDataList = JsonUtility.FromJson<List<WordData>>(jsonFile.text);
+        List<WordData> wordDataList = ParseJsonText(jsonFile.text);
+        print(jsonFile.text);
+
+        // Check if word data is valid
+        if (wordDataList == null)
+        {
+            Debug.LogError("Invalid word data.");
+            return;
+        }
+
+        // Clear existing text
+        scenario2scene.text = "";
+
+        print("near end of  TextStream and Audio");
+
+        // Play the audio clip
+        StartCoroutine(PlayAudioWithText(audioClip, wordDataList));
+    }
+
+
+    private IEnumerator PlayAudioWithText(AudioClip audioClip, List<WordData> wordDataList)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
+        foreach (WordData wordData in wordDataList)
+        {
+            scenario2scene.text += wordData.word + " ";
+
+            // wait for the entire duration of the current word's audio
+            print("END: " + wordData.end);
+            print("START: " + wordData.start);
+            print("Difference: " + (wordData.end - wordData.start));
+
+            // needs buffer , unity might lag
+            yield return new WaitForSeconds(wordData.end - wordData.start + 0.05f);
+        }
+
+    }
+
+    private List<WordData> ParseJsonText(string jsonText)
+    {
+        // Parse JSON data into a list of WordData objects
+        WordDataList wordDataListContainer = JsonUtility.FromJson<WordDataList>(jsonText);
+
+        if (wordDataListContainer != null && wordDataListContainer.wordDataList != null)
+        {
+            return wordDataListContainer.wordDataList;
+        }
+        else
+        {
+            Debug.LogError("Failed to parse JSON data.");
+            return null;
+        }
+    }
+
+    // Classes to deserialize JSON data
+    [System.Serializable]
+    public class WordData
+    {
+        public string word;
+        public float start;
+        public float end;
+    }
+
+    [System.Serializable]
+    public class WordDataList
+    {
+        public List<WordData> wordDataList;
+    }
+
 
     private string GenerateRandomPID(int length)
     {
@@ -139,20 +201,20 @@ public class ScenarioController : MonoBehaviour
         //}
 
 
-        if (!sentMessage && whisper.finishedRecording)
-        {
-            //Show ASR Canvas with slight delay
-            StartCoroutine(ShowASRCanvas());
+        //if (!sentMessage && whisper.finishedRecording)
+        //{
+        //    //Show ASR Canvas with slight delay
+        //    StartCoroutine(ShowASRCanvas());
 
-            print("SENDING SPEECH");
+        //    print("SENDING SPEECH");
 
-            // NOTE: send firebase message here
-            SendSpeechFireBase();
+        //    // NOTE: send firebase message here
+        //    SendSpeechFireBase();
 
-            //Hide ASR Canvas with slight delay
-            StartCoroutine(HideASRCanvas());
+        //    //Hide ASR Canvas with slight delay
+        //    StartCoroutine(HideASRCanvas());
 
-        }
+        //}
 
     }
 
