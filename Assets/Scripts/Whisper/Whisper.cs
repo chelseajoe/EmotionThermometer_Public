@@ -85,10 +85,11 @@ namespace OpenAI
             recordText.text = "Recording...";
             currentlyRecording = true;
 
-            var index = PlayerPrefs.GetInt("user-mic-device-index");
-            
+            // var index = PlayerPrefs.GetInt("user-mic-device-index");
+
             #if !UNITY_WEBGL
-            clip = Microphone.Start(dropdown.options[index].text, false, duration, 44100);
+                        // clip = Microphone.Start(dropdown.options[index].text, false, duration, 44100);
+                        clip = Microphone.Start(Microphone.devices[0], false, duration, 44100);
             #endif
         }
 
