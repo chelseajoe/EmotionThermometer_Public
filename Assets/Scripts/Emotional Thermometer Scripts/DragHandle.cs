@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class DragHandle : MonoBehaviour
@@ -25,8 +26,14 @@ public class DragHandle : MonoBehaviour
     public GameObject noPIDCanvas;
     public GameObject strategiesDisplayed;
 
+    public AutoRosConnector autoRos;
 
+    [SerializeField]
+    Slider slider;
 
+    private bool light_on = false;
+
+    public RosManager rosManager;
 
     public bool isConfirmed = false;
     public bool canvasOn = false;
@@ -56,6 +63,15 @@ public class DragHandle : MonoBehaviour
 
     private void Start()
     {
+
+        rosManager = autoRos.GetRosManager();
+        if (rosManager == null)
+        {
+            Debug.LogError("ROS manager does not exist.");
+        }
+        SubscribeToMessage();
+
+
         noPIDCanvas.gameObject.SetActive(false);
         strategiesCanvas.gameObject.SetActive(false);
         // ASR Canvas Starts Off
@@ -124,6 +140,8 @@ public class DragHandle : MonoBehaviour
         }
         if (isConfirmed)
         {
+            
+
             dragSpeed = 0;
 
             if (!canvasOn)
@@ -131,6 +149,11 @@ public class DragHandle : MonoBehaviour
                 //Show ASR Canvas with slight delay
                 StartCoroutine(ShowASRCanvas());
                 canvasOn = true;
+
+
+                //This works fine for Jibo speach
+                Debug.Log("Speak, Jibo, Speak!!");
+                rosManager.SendRosMessage(new RosMessages.JiboSpeechAction("<es name='Sway_01'> There are things I am good at, such as spelling. </es> <break size='1.0'/> And then there are things I am still learning, such as listening to words. <break size='2.0'/> <es cat='curious'> If I am not able to understand you, will you help me by repeating? </es>")).Invoke();
             }
 
 
@@ -280,6 +303,11 @@ public class DragHandle : MonoBehaviour
             transform.position = other.gameObject.transform.position;
         }
            
+    }
+
+    public void SubscribeToMessage()
+    {
+        rosManager.SendRosMessage(RosbridgeUtilities.GetROSJsonSubscribeMsg(Constants.JIBO_ASR_RESULTS_ROSTOPIC, Constants.JIBO_ASR_RESULTS_MSG_TYPE)).Invoke();
     }
 
 

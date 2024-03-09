@@ -5,7 +5,7 @@ public class TTSManager : MonoBehaviour
     private OpenAIWrapper openAIWrapper;
     [SerializeField] private AudioPlayer audioPlayer;
     [SerializeField] private TTSModel model = TTSModel.TTS_1;
-    [SerializeField] private TTSVoice voice = TTSVoice.Echo;
+    [SerializeField] private TTSVoice voice = TTSVoice.Nova;
     [SerializeField, Range(0.25f, 4.0f)] private float speed = 1f;
 
     public string textToSay;

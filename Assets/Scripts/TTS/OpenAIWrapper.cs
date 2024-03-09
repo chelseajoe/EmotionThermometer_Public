@@ -19,7 +19,7 @@ public class OpenAIWrapper : MonoBehaviour
 {
     private string openAIKey;
     private TTSModel model = TTSModel.TTS_1;
-    private TTSVoice voice = TTSVoice.Alloy;
+    private TTSVoice voice = TTSVoice.Nova;
     private float speed = 1f;
     private readonly string outputFormat = "mp3";
     public bool unSuccessful;
