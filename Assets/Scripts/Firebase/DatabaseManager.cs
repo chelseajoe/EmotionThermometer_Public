@@ -38,6 +38,36 @@ public class DatabaseManager : MonoBehaviour
         // NOTE: where Database Manager is set to dontdestroyonload
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            //FirebaseApp app = FirebaseApp.DefaultInstance;
+            //reference = FirebaseDatabase.DefaultInstance.RootReference;
+            //print("getting firebase reference");
+            if (task.IsCompleted && !task.IsFaulted)
+            {
+                FirebaseApp app = FirebaseApp.DefaultInstance;
+                reference = FirebaseDatabase.DefaultInstance.RootReference;
+                print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
+
+                // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
+            }
+            else
+            {
+                // Handle the error if Firebase initialization fails
+                Debug.LogError("Firebase initialization failed: " + task.Exception);
+            }
+
+        });
+
+        //if (FirebaseApp.DefaultInstance.Options.DatabaseUrl == null)
+        //{
+        //    print("FirebaseApp.DefaultInstance.Options.DatabaseUrl is NULL" );
+        //}
+        //print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
+        //print("AWAKE????");
+
+
     }
 
     //private void Awake()
@@ -49,25 +79,26 @@ public class DatabaseManager : MonoBehaviour
     private void Start()
     {
 
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        {
-            //FirebaseApp app = FirebaseApp.DefaultInstance;
-            //reference = FirebaseDatabase.DefaultInstance.RootReference;
-            //print("getting firebase reference");
-            if (task.IsCompleted && !task.IsFaulted)
-            {
-                FirebaseApp app = FirebaseApp.DefaultInstance;
-                reference = FirebaseDatabase.DefaultInstance.RootReference;
+        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    //FirebaseApp app = FirebaseApp.DefaultInstance;
+        //    //reference = FirebaseDatabase.DefaultInstance.RootReference;
+        //    //print("getting firebase reference");
+        //    if (task.IsCompleted && !task.IsFaulted)
+        //    {
+        //        FirebaseApp app = FirebaseApp.DefaultInstance;
+        //        reference = FirebaseDatabase.DefaultInstance.RootReference;
+        //        Debug.Log(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
 
-                // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
-            }
-            else
-            {
-                // Handle the error if Firebase initialization fails
-                Debug.LogError("Firebase initialization failed: " + task.Exception);
-            }
+        //        // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
+        //    }
+        //    else
+        //    {
+        //        // Handle the error if Firebase initialization fails
+        //        Debug.LogError("Firebase initialization failed: " + task.Exception);
+        //    }
 
-        });
+        //});
 
 
         //auth = FirebaseAuth.DefaultInstance;
@@ -178,11 +209,13 @@ public class DatabaseManager : MonoBehaviour
     private void FetchUserData(string userId)
     {
         print("fetching");
+        print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
         if (reference == null)
         {
             print("reference is null");
         }
         print(userId);
+        //print(reference);
         reference.Child(userId).GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
             {

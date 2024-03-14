@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class checkBtnScript : MonoBehaviour
 {
-    public GameObject dh;
-    public DragHandle dragHandle;
+    public GameObject etc;
+    public EmotionThermometerController emotionThermometerController;
     public bool pidIsEntered;
     public bool confirmedOnce;
     
@@ -14,26 +14,26 @@ public class checkBtnScript : MonoBehaviour
     void Start()
     {
         confirmedOnce = false;
-        dh = GameObject.Find("DragHandle");
+        etc = GameObject.Find("EmotionThermometerController");
         pidIsEntered = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(dragHandle.ChosenEmoji);
     }
+
 
      public void ConfirmEmoji(){
         if (confirmedOnce)
         {
             return;
         }
-        dragHandle = dh.GetComponent<DragHandle>();
+        emotionThermometerController = etc.GetComponent<EmotionThermometerController>();
 
-        if (dragHandle == null)
+        if (emotionThermometerController == null)
         {
-            print("No DragHandle in Scene");
+            print("No EmotionThermometerController in Scene");
             return;
         }
 
@@ -41,21 +41,16 @@ public class checkBtnScript : MonoBehaviour
         
 
         // Edge Case Checking
-        if (dragHandle.CurrentEmoji == "") {
+        if (emotionThermometerController.CurrentEmoji == "") {
             Debug.Log("No Emoji was Selected");
             return;
         }
         else
         {
-            dragHandle.isConfirmed = true;
+            emotionThermometerController.isConfirmed = true;
             confirmedOnce = true;
-            
         }
 
-        
-
-
-        
     }
 
     public void pidSumbit()

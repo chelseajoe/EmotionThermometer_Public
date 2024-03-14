@@ -925,25 +925,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneImages: []
-  sceneTexts:
-  - "A friend might upset you, leading to strong emotions. To handle these emotions,
-    try self-talk \u2013 talking to yourself with calming words or phrases. Some
-    examples of self-talk are: \\n\\n    > \u201CI can do this\u201D\\n    > \u201CI
-    will do my best\u201D \\n    > \u201CMy friends like me\u201D\\n    > \u201CI
-    can try again\u201D"
-  sceneQuestions:
-  - 'What self-talk would you use to calm down?  '
+  sceneText: 'A friend may hurt your feelings. That will cause big emotions. You
+    can deal with those big emotions with self-talk. Self-talk is words or phrases
+    you say to yourself to calm down. Some examples of self-talk are:  - I can do
+    this - I will do my best - My friends like me - I can try again. '
+  sceneQuestion: What self-talk would you use to calm down?
   wordDelay: 0.1
-  scenario2scene: {fileID: 984780047}
-  scenario2question: {fileID: 1016572508}
+  scenarioscene: {fileID: 984780047}
+  scenarioquestion: {fileID: 1016572508}
   jibo: {fileID: 1726146626}
   next: {fileID: 19023701}
+  drawBtn: {fileID: 0}
+  isDrawingScene: 0
+  drawingScenes:
+  - Scenario3
   tTSManager: {fileID: 1209166630}
-  delayTime: 2
+  delayTime: 0.1
   jiboButtonIsClicked: 0
   ASRCanvas: {fileID: 746069947}
   whisper: {fileID: 720057557}
-  databaseManager: {fileID: 0}
   canvasOn: 0
   recordButtonIsClicked: 0
   correctResponse: "Any response that is self motivational similar to \u201CI can
@@ -962,6 +962,9 @@ MonoBehaviour:
     can be a challenge in the moment. How about we brainstorm together! What are
     some positive self-talk phrases that you think could help you feel more at ease
     and better about the situation?
+  audioClip: {fileID: 8300000, guid: f8b4f061f2a3142f5abe01e2760f89f6, type: 3}
+  jsonFile: {fileID: 4900000, guid: fde949004acf24a6597e06b00c37dbb0, type: 3}
+  audioSource: {fileID: 1838863335}
 --- !u!4 &772177705
 Transform:
   m_ObjectHideFlags: 0
@@ -977,6 +980,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &975861198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f8b4f061f2a3142f5abe01e2760f89f6, type: 3}
+    - target: {fileID: 7214668212461134445, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_Name
+      value: TTSAudioSource
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
 --- !u!114 &984780047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
@@ -1222,7 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -1304,6 +1368,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!82 &1838863335 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+  m_PrefabInstance: {fileID: 975861198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1900522273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,7 +1995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
       propertyPath: m_fontSize
-      value: 45
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
       propertyPath: m_margin.y
@@ -1934,7 +2003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
       propertyPath: m_fontSizeBase
-      value: 45
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2236,3 +2305,4 @@ SceneRoots:
   - {fileID: 746069941}
   - {fileID: 720057556}
   - {fileID: 772177705}
+  - {fileID: 975861198}

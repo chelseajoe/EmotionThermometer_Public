@@ -16,8 +16,6 @@ namespace OpenAI
         [SerializeField] private GameObject text;
         
         private TMP_Text recordText;
-        
-        //[SerializeField] private Text message;
         [SerializeField] private Dropdown dropdown;
 
         private readonly string fileName = "output.wav";
@@ -30,7 +28,6 @@ namespace OpenAI
         public string childSpeech;
         public bool finishedRecording;
         public bool currentlyRecording;
-        //private OpenAIApi openai = new OpenAIApi();
 
         // Debugging
         [SerializeField] private GameObject outputText;
@@ -48,13 +45,8 @@ namespace OpenAI
             dropdown.enabled = false;
             currentlyRecording = false;
 
-            // Access your environment variables + api key from .env
-            //string apiKey = PlayerPrefs.GetString("ApiKey");
-            // click button, end recording
             stopButton.onClick.AddListener(EndRecording);
 
-            // Debugging
-            //output = outputText.GetComponent<TMP_Text>();
 #if UNITY_WEBGL && !UNITY_EDITOR
             dropdown.options.Add(new Dropdown.OptionData("Microphone not supported on WebGL"));
 #else
@@ -78,7 +70,6 @@ namespace OpenAI
         private void StartRecording()
         {
             isRecording = true;
-            //recordButton.enabled = false;
             progressBar.enabled = true;
             stopButton.gameObject.SetActive(true);
             recordButton.gameObject.SetActive(false);
@@ -95,7 +86,6 @@ namespace OpenAI
 
         IEnumerator EmptyProgressBar()
         {
-            //progressBar.color = Color.red;
             yield return new WaitForSeconds(1f);
             progressBar.fillAmount = 0;
         }
@@ -104,9 +94,7 @@ namespace OpenAI
         {
             currentlyRecording = false;
             var openai = new OpenAIApi("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");
-            // message.text = "Transcripting...";
             recordText.text = "Loading...";
-            //progressBar.fillAmount = time / duration;
 
 #if !UNITY_WEBGL
             Microphone.End(null);
@@ -124,13 +112,6 @@ namespace OpenAI
             //progressBar.color = Color.blue;
             var res = await openai.CreateAudioTranscription(req);
 
-            // Debugging
-            //recordText.text = res.Text;
-            
-
-            //progressBar.fillAmount = 0;
-            //progressBar.color = Color.red;
-            //return;
             StartCoroutine(EmptyProgressBar());
             finishedRecording = true;
             //message.text = res.Text;
@@ -152,10 +133,6 @@ namespace OpenAI
                     time += Time.deltaTime;
                     progressBar.fillAmount = time / duration;
                 }
-                
-
-
-                
 
                 // times up, end recording
                 if (time >= duration && currentlyRecording)
@@ -167,14 +144,5 @@ namespace OpenAI
             }
         }
 
-        // Debugging
-        //IEnumerator ShowOutputCanvas()
-        //{
-
-        //    yield return new WaitForSeconds(0.5f);
-        //    OutputCanvas.gameObject.GetComponent<TMP_Text>.text
-        //    OutputCanvas.gameObject.SetActive(true);
-        //    //Debug.Log("Coroutine finished");
-        //}
     }
 }

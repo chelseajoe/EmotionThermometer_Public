@@ -12,11 +12,6 @@ public class PIDInput : MonoBehaviour
 
     public DatabaseManager databaseManager;
 
-    //void Awake()
-    //{
-    //    databaseManager = DatabaseManager.Instance;
-    //    Debug.Log("PIDInput Awake");
-    //}
 
     void Start()
     {
@@ -31,10 +26,6 @@ public class PIDInput : MonoBehaviour
         {
             dbManager.GetComponent<DatabaseManager>().userId = inputField.text;
             dbManager.GetComponent<DatabaseManager>().ReadStringInput();
-
-
-            //DatabaseManager.Instance.userId = inputField.text;
-            //DatabaseManager.Instance.ReadStringInput(); 
 
         }
     }

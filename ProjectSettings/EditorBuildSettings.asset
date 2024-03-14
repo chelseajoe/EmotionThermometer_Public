@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Drawing.unity
     guid: 47a37cece57084f639fec81a2f0654c2
   - enabled: 1
-    path: Assets/Scenes/Emotional Thermometer.unity
+    path: Assets/Scenes/Emotion Thermometer.unity
     guid: 22fcdc80cf9dd4ae2a031ebd1c7dbd36
   - enabled: 1
     path: Assets/Scenes/Scenario4.unity

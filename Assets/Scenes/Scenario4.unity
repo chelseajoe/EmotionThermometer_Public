@@ -436,6 +436,67 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &313684129
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1ebfa056812fa4dba86d5a68343c6be6, type: 3}
+    - target: {fileID: 7214668212461134445, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_Name
+      value: TTSAudioSource
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
 --- !u!1 &326673731
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,23 +988,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneImages: []
-  sceneTexts:
-  - Your sister happily made a cake. But when she carried it to the table, she tripped,
-    and the cake fell on the floor. Your sister is upset, looking at the ruined cake
-    with a frown on her face.
-  sceneQuestions:
-  - 'How would you cheer her up? '
+  sceneText: 'Your sister happily made a cake. But when she carried it to the table,
+    she tripped, and the cake fell on the floor. Your sister is upset, looking at
+    the ruined cake with a frown on her face. '
+  sceneQuestion: 'How would you cheer her up?  '
   wordDelay: 0.1
-  scenario2scene: {fileID: 984780047}
-  scenario2question: {fileID: 1016572508}
+  scenarioscene: {fileID: 984780050}
+  scenarioquestion: {fileID: 1574750527}
   jibo: {fileID: 1726146626}
   next: {fileID: 19023701}
+  drawBtn: {fileID: 0}
+  isDrawingScene: 0
+  drawingScenes:
+  - Scenario3
   tTSManager: {fileID: 1209166630}
-  delayTime: 2
+  delayTime: 0.1
   jiboButtonIsClicked: 0
   ASRCanvas: {fileID: 746069947}
   whisper: {fileID: 720057557}
-  databaseManager: {fileID: 0}
   canvasOn: 0
   recordButtonIsClicked: 0
   correctResponse: A comforting response such as "Don't worry, mistakes happen",
@@ -961,6 +1023,9 @@ MonoBehaviour:
   jiboNRResponse: 'That''s okay if you''re not sure what to do. Sometimes it''s hard
     to know what to say or how to help. Maybe we can think of some ideas together.
     What do you think we could do to try to help her feel better? '
+  audioClip: {fileID: 8300000, guid: 1ebfa056812fa4dba86d5a68343c6be6, type: 3}
+  jsonFile: {fileID: 4900000, guid: 2044d4e02201d405fbd209f7cdb36f52, type: 3}
+  audioSource: {fileID: 2118171616}
 --- !u!4 &772177705
 Transform:
   m_ObjectHideFlags: 0
@@ -976,7 +1041,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &984780047 stripped
+--- !u!224 &984780049 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4994898225214575200, guid: 38b4c046781434900935355914e09846, type: 3}
+  m_PrefabInstance: {fileID: 7408623796277738596}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &984780050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 138081611730889080, guid: 38b4c046781434900935355914e09846, type: 3}
   m_PrefabInstance: {fileID: 7408623796277738596}
@@ -987,27 +1057,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &984780049 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4994898225214575200, guid: 38b4c046781434900935355914e09846, type: 3}
-  m_PrefabInstance: {fileID: 7408623796277738596}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1013403041 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7015659030472481177, guid: 32067a4c9965b41da95aa36f9ec5c4fd, type: 3}
   m_PrefabInstance: {fileID: 4855116683639030546}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1016572508 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8363067844126983396, guid: 7a22149da1e6f4de6b380e43e3731d79, type: 3}
-  m_PrefabInstance: {fileID: 1119733434344676553}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1016572510 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7961859928569249879, guid: 7a22149da1e6f4de6b380e43e3731d79, type: 3}
@@ -1179,6 +1233,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377502083}
   m_CullTransparentMesh: 1
+--- !u!114 &1574750527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8363067844126983396, guid: 7a22149da1e6f4de6b380e43e3731d79, type: 3}
+  m_PrefabInstance: {fileID: 1119733434344676553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1726146626 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
@@ -1446,6 +1511,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2118171616 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+  m_PrefabInstance: {fileID: 313684129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2123506338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2215,3 +2285,4 @@ SceneRoots:
   - {fileID: 746069941}
   - {fileID: 720057556}
   - {fileID: 772177705}
+  - {fileID: 313684129}

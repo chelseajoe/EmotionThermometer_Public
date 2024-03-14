@@ -949,8 +949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acac5fc2d9c064b00ad7af37f61a0ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dh: {fileID: 0}
-  dragHandle: {fileID: 0}
+  etc: {fileID: 0}
+  emotionThermometerController: {fileID: 0}
   pidIsEntered: 0
   confirmedOnce: 0
 --- !u!1 &181051745
@@ -2471,15 +2471,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 651825846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d058e6811761747de9d3512b29b201fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d82c9d927f12450187674d9ca71d7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmojiText: {fileID: 1901319352}
-  MaskHandle: {fileID: 1110002703}
+  MaskHandle: {fileID: 475005116}
   EmojiTrigger: {fileID: 1771716121}
   NextEmojiTrigger: {fileID: 553849036}
   BottomTrigger: {fileID: 96595002}
-  dragHandle: {fileID: 1110002704}
+  emotionThermometerController: {fileID: 1110002704}
 --- !u!61 &651825849
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2585,13 +2585,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651825846}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0034179315, w: 0.9999942}
   m_LocalPosition: {x: -4.6099997, y: -0.04000002, z: 0}
   m_LocalScale: {x: 0.41608447, y: 0.41608447, z: 0.41608447}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.392}
 --- !u!1001 &700675289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3400,7 +3400,7 @@ GameObject:
   - component: {fileID: 1110002704}
   - component: {fileID: 1110002708}
   m_Layer: 0
-  m_Name: DragHandle
+  m_Name: EmotionThermometerController
   m_TagString: Handle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3422,18 +3422,19 @@ MonoBehaviour:
   BottomBoundary: {fileID: 1971606042}
   ChosenEmoji: 
   CurrentEmoji: 
-  databaseManager: {fileID: 0}
-  ASRCanvas: {fileID: 37142199}
   dragSpeed: 1
+  databaseManager: {fileID: 0}
   whisper: {fileID: 375222183}
   emotion: 
   displayedStrategies: []
-  strategiesCanvas: {fileID: 1803055701}
-  noPIDCanvas: {fileID: 1257013541}
   strategiesDisplayed: {fileID: 181051745}
+  strategiesCanvas: {fileID: 1803055701}
+  ASRCanvas: {fileID: 37142199}
+  noPIDCanvas: {fileID: 1257013541}
+  autoRos: {fileID: 1613054090}
+  slider: {fileID: 0}
   isConfirmed: 0
   canvasOn: 0
-  dbManagerSpare: {fileID: 0}
 --- !u!61 &1110002705
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4483,15 +4484,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1437060231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d058e6811761747de9d3512b29b201fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d82c9d927f12450187674d9ca71d7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmojiText: {fileID: 1627221534}
-  MaskHandle: {fileID: 1110002703}
+  MaskHandle: {fileID: 475005116}
   EmojiTrigger: {fileID: 740334322}
   NextEmojiTrigger: {fileID: 1807467487}
-  BottomTrigger: {fileID: 96595002}
-  dragHandle: {fileID: 1110002704}
+  BottomTrigger: {fileID: 384427832}
+  emotionThermometerController: {fileID: 1110002704}
 --- !u!61 &1437060234
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5078,15 +5079,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1561241993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d058e6811761747de9d3512b29b201fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d82c9d927f12450187674d9ca71d7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmojiText: {fileID: 2008154779}
-  MaskHandle: {fileID: 1110002703}
+  MaskHandle: {fileID: 475005116}
   EmojiTrigger: {fileID: 384427832}
   NextEmojiTrigger: {fileID: 740334322}
-  BottomTrigger: {fileID: 96595002}
-  dragHandle: {fileID: 1110002704}
+  BottomTrigger: {fileID: 553849036}
+  emotionThermometerController: {fileID: 1110002704}
 --- !u!61 &1561241996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5195,6 +5196,50 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.6099997, y: -0.03999999, z: 0}
   m_LocalScale: {x: 0.41608447, y: 0.41608447, z: 0.41608447}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1613054089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613054091}
+  - component: {fileID: 1613054090}
+  m_Layer: 0
+  m_Name: AutoRosConnector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1613054090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613054089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e9f01815c624dfdbe88e174e3e0d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1613054091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613054089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5450,8 +5495,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acac5fc2d9c064b00ad7af37f61a0ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dh: {fileID: 0}
-  dragHandle: {fileID: 1110002704}
+  etc: {fileID: 0}
+  emotionThermometerController: {fileID: 0}
   pidIsEntered: 0
   confirmedOnce: 0
 --- !u!1 &1734203526
@@ -5542,15 +5587,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747630911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d058e6811761747de9d3512b29b201fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d82c9d927f12450187674d9ca71d7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmojiText: {fileID: 798041650}
-  MaskHandle: {fileID: 1110002703}
+  MaskHandle: {fileID: 475005116}
   EmojiTrigger: {fileID: 1807467487}
   NextEmojiTrigger: {fileID: 895415215}
-  BottomTrigger: {fileID: 96595002}
-  dragHandle: {fileID: 1110002704}
+  BottomTrigger: {fileID: 740334322}
+  emotionThermometerController: {fileID: 1110002704}
 --- !u!61 &1747630914
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6182,15 +6227,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1964418791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d058e6811761747de9d3512b29b201fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d82c9d927f12450187674d9ca71d7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmojiText: {fileID: 1734203526}
-  MaskHandle: {fileID: 1110002703}
+  MaskHandle: {fileID: 475005116}
   EmojiTrigger: {fileID: 553849036}
   NextEmojiTrigger: {fileID: 384427832}
-  BottomTrigger: {fileID: 96595002}
-  dragHandle: {fileID: 1110002704}
+  BottomTrigger: {fileID: 1771716121}
+  emotionThermometerController: {fileID: 1110002704}
 --- !u!61 &1964418793
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6840,63 +6885,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f68167b2d039145178f501851ee394e7, type: 3}
---- !u!1001 &3018009567669523025
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2359261669538116135, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_Name
-      value: DatabaseManagerSpare
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 384.71683
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 237.29689
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.24273682
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928747265714205121, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 259bc1c04cf3842a19ed6ad234718cca, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -6939,5 +6927,5 @@ SceneRoots:
   - {fileID: 1257013545}
   - {fileID: 1448410120}
   - {fileID: 2388355238254957448}
-  - {fileID: 3018009567669523025}
   - {fileID: 700675289}
+  - {fileID: 1613054091}

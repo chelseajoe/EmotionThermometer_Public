@@ -95,3 +95,8 @@ crashlytics-build.properties
 /[Aa]ssets/ExternalDependencyManager/
 /[Aa]ssets/Firebase/
 /[Aa]ssets/Plugins/
+
+
+# Screenshot Saving
+Screenshot.png
+scene_screenshot.png
