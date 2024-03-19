@@ -380,6 +380,72 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7015659030472481177, guid: 32067a4c9965b41da95aa36f9ec5c4fd, type: 3}
   m_PrefabInstance: {fileID: 487505147}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &522576609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2845611009050209576, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ec16d408d6d74b8f825f71e53da383e, type: 3}
+    - target: {fileID: 7214668212461134445, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+      propertyPath: m_Name
+      value: TTSAudioSource
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+--- !u!82 &522576610 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5355451178753093204, guid: 027b79e821b3043a394b2c3b06c53859, type: 3}
+  m_PrefabInstance: {fileID: 522576609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &530864366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -572,8 +638,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 958697175}
-        m_TargetAssemblyTypeName: Scenario3SceneController, Assembly-CSharp
+      - m_Target: {fileID: 1746427049}
+        m_TargetAssemblyTypeName: ScenarioController, Assembly-CSharp
         m_MethodName: draw
         m_Mode: 1
         m_Arguments:
@@ -729,71 +795,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &958697174
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 958697176}
-  - component: {fileID: 958697175}
-  m_Layer: 0
-  m_Name: Scenario3-SceneController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &958697175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958697174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a864bf00f484240a9b7051e048522c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneImages:
-  - {fileID: 1930586964}
-  - {fileID: 75153974}
-  sceneTexts:
-  - Rosy and Brad both want to play with the basketball at recess. Brad got to the
-    court first, but Rosy got the ball first. How should they solve this problem?
-  - scenario3 scene2 text
-  - scenario3 scene3 text
-  - scenario3 scene4 text
-  sceneQuestions:
-  - Draw a picture to show what they should do.
-  - scenario3 scene2 question
-  - scenario3 scene3 question
-  - scenario3 scene4 question
-  wordDelay: 0.2
-  scenario3scene: {fileID: 2091374896}
-  scenario3question: {fileID: 530864368}
-  jibo: {fileID: 1825070490}
-  drawBtn: {fileID: 545341699}
-  tTSManager: {fileID: 2118420842}
-  delayTime: 2
---- !u!4 &958697176
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958697174}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.69568604, y: -0.41347837, z: 1.8008001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1298,6 +1299,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65d650f6a4d140409971dc6168e7b65, type: 3}
+--- !u!1 &1746427048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746427050}
+  - component: {fileID: 1746427049}
+  m_Layer: 0
+  m_Name: ScenarioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1746427049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746427048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55198c051ec3c4c758f033995353fa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneImages: []
+  sceneText: 'Rosy and Brad both want to play with the basketball at recess. Brad
+    got to the court first, but Rosy got the ball first. How should they solve this
+    problem? '
+  sceneQuestion: Draw a picture to show what they should do.
+  wordDelay: 0.1
+  scenarioscene: {fileID: 2091374896}
+  scenarioquestion: {fileID: 530864368}
+  jibo: {fileID: 1825070490}
+  next: {fileID: 0}
+  drawBtn: {fileID: 545341699}
+  isDrawingScene: 0
+  drawingScenes:
+  - Scenario3
+  tTSManager: {fileID: 2118420842}
+  delayTime: 0.1
+  jiboButtonIsClicked: 0
+  ASRCanvas: {fileID: 0}
+  whisper: {fileID: 0}
+  canvasOn: 0
+  recordButtonIsClicked: 0
+  correctResponse: 
+  childResponse: 
+  characterName: 
+  feelingType: 
+  jiboCorrectResponse: 
+  jiboIncorrectResponse: 
+  jiboNRResponse: 
+  audioClip: {fileID: 8300000, guid: 7ec16d408d6d74b8f825f71e53da383e, type: 3}
+  jsonFile: {fileID: 4900000, guid: a0ba6e63cca2944f18aefc8edee565e0, type: 3}
+  audioSource: {fileID: 522576610}
+--- !u!4 &1746427050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746427048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1825070488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1317,14 +1393,14 @@ PrefabInstance:
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 958697175}
+      objectReference: {fileID: 1746427049}
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: jiboQuestion
       objectReference: {fileID: 0}
     - target: {fileID: 2983164937287422218, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Scenario3SceneController, Assembly-CSharp
+      value: ScenarioController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8011448213571840378, guid: 10828e51baa83499a9c0b7fed00597b6, type: 3}
       propertyPath: m_Pivot.x
@@ -1711,6 +1787,7 @@ SceneRoots:
   - {fileID: 1313559469}
   - {fileID: 339700998}
   - {fileID: 1458873630}
-  - {fileID: 958697176}
   - {fileID: 1862222592}
   - {fileID: 1715672882}
+  - {fileID: 1746427050}
+  - {fileID: 522576609}

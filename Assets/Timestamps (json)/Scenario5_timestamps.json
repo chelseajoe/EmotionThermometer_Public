@@ -1,0 +1,149 @@
+{
+  "wordDataList": [
+    {
+      "word": " Dad",
+      "start": 0.04,
+      "end": 0.18
+    },
+    {
+      "word": " got",
+      "start": 0.18,
+      "end": 0.4
+    },
+    {
+      "word": " worried",
+      "start": 0.4,
+      "end": 0.72
+    },
+    {
+      "word": " because",
+      "start": 0.72,
+      "end": 1.02
+    },
+    {
+      "word": " the",
+      "start": 1.02,
+      "end": 1.12
+    },
+    {
+      "word": " power",
+      "start": 1.26,
+      "end": 1.46
+    },
+    {
+      "word": " went",
+      "start": 1.46,
+      "end": 1.68
+    },
+    {
+      "word": " out.",
+      "start": 1.68,
+      "end": 1.78
+    },
+    {
+      "word": " He",
+      "start": 2.66,
+      "end": 2.76
+    },
+    {
+      "word": " looked",
+      "start": 2.76,
+      "end": 2.94
+    },
+    {
+      "word": " around,",
+      "start": 3.0,
+      "end": 3.32
+    },
+    {
+      "word": " feeling",
+      "start": 3.8,
+      "end": 3.94
+    },
+    {
+      "word": " anxious.",
+      "start": 3.94,
+      "end": 4.36
+    },
+    {
+      "word": " The",
+      "start": 4.98,
+      "end": 5.08
+    },
+    {
+      "word": " dark",
+      "start": 5.08,
+      "end": 5.34
+    },
+    {
+      "word": " made",
+      "start": 5.34,
+      "end": 5.6
+    },
+    {
+      "word": " him",
+      "start": 5.6,
+      "end": 5.74
+    },
+    {
+      "word": " a",
+      "start": 5.74,
+      "end": 5.84
+    },
+    {
+      "word": " bit",
+      "start": 5.84,
+      "end": 6.0
+    },
+    {
+      "word": " nervous,",
+      "start": 6.0,
+      "end": 6.34
+    },
+    {
+      "word": " and",
+      "start": 6.9,
+      "end": 6.98
+    },
+    {
+      "word": " he",
+      "start": 6.98,
+      "end": 7.08
+    },
+    {
+      "word": " hoped",
+      "start": 7.08,
+      "end": 7.36
+    },
+    {
+      "word": " the",
+      "start": 7.36,
+      "end": 7.58
+    },
+    {
+      "word": " lights",
+      "start": 7.58,
+      "end": 7.8
+    },
+    {
+      "word": " would",
+      "start": 7.8,
+      "end": 7.9
+    },
+    {
+      "word": " come",
+      "start": 8.14,
+      "end": 8.24
+    },
+    {
+      "word": " back",
+      "start": 8.24,
+      "end": 8.44
+    },
+    {
+      "word": " soon.",
+      "start": 8.44,
+      "end": 8.78
+    }
+  ]
+}

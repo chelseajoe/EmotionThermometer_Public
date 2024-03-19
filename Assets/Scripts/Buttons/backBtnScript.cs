@@ -5,17 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class backBtnScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
     public void goBack(){
         Debug.Log("going back all scenarios menu");
         SceneManager.LoadScene("ScenariosMenu");

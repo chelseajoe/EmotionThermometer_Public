@@ -6,63 +6,44 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using OpenAI;
-//using UnityEditor.VersionControl;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using System;
 
-// dynamically changing the image, scene text, and scene question of scenario 1
 
 public class ScenarioController : MonoBehaviour
 {
+    // Scene Variables - public variables to change in unity
     public Image[] sceneImages;
-    // static scenes
-    public string[] sceneTexts =
-    {
-        "Jessica is playing on the swings at recess. She is with her best friend. As she is swinging, Jessica slips off and falls to the ground. Her eyes fill with tears, and she starts to cry.",
-        //"Mark is going to a park with his family. They make plans to meet a friend there. When Mark gets to the park, the sun is shining and it's warm. Mark plays with his friends and smiles a lot.",
-        //"Ryan and Donnie are on a bike ride together. They ride by a baseball field. Ryan slams on his brakes. He hops off his bike and jumps up and down. Ryan asks Donnie to watch the game with him.",
-        //"Hanna is working on an art project. She puts her hands on her head and takes a deep breath. She puts her head down and pushes her paper away."
-    };
-    public string[] sceneQuestions = { "How is Jessica feeling?"
-        //,"How is Mark feeling?", "How does Ryan feel? How does he show it?", "How does Hanna feel about this art project? How does she show it?"
-    };
+    public string sceneText = "Jessica is playing on the swings at recess. She is with her best friend. As she is swinging, Jessica slips off and falls to the ground. Her eyes fill with tears, and she starts to cry.";
+    public string sceneQuestion = "How is Jessica feeling?";
 
-    public float wordDelay = 0.1f;
+    [SerializeField] float wordDelay = 0.1f;
     private int currentScene = 0;
-
-    [SerializeField]
-    private TMP_Text scenario2scene;
-
-    [SerializeField]
-    private TMP_Text scenario2question;
+    [SerializeField] private TMP_Text scenarioscene;
+    [SerializeField] private TMP_Text scenarioquestion;
 
     public Button jibo;
     public Button next;
+    public Button drawBtn;
 
-
-
+    public bool isDrawingScene = false;
+    public string[] drawingScenes = { "Scenario3" };
 
     // Adding TTS
     [SerializeField] private TTSManager tTSManager;
-    public float delayTime = 2.0f;
+    [SerializeField] float delayTime = 0.1f;
     public bool jiboButtonIsClicked = false;
 
     // Adding ASR (recording)
     public Canvas ASRCanvas;
     public OpenAI.Whisper whisper;
-    public DatabaseManager databaseManager;
-    private GameObject dbManager;
     bool sentMessage = false;
     public bool canvasOn = false;
     public bool recordButtonIsClicked = false;
 
-    // Random PID Generation
-    private static System.Random random = new System.Random();
-    //public GameObject dbManagerSpare;
-
-
     //Adding GPT analysis
     public string correctResponse;
-    //public string keyWord;
     public string childResponse;
     public string characterName;
     public string feelingType;
@@ -70,76 +51,122 @@ public class ScenarioController : MonoBehaviour
     public string jiboIncorrectResponse;
     public string jiboNRResponse;
 
+    // TTS with timestamps
+    public AudioClip audioClip;
+    public TextAsset jsonFile;
+    public AudioSource audioSource;
+
+    // Classes to deserialize JSON data
+    [System.Serializable]
+    public class WordData
+    {
+        public string word;
+        public float start;
+        public float end;
+    }
+
+    [System.Serializable]
+    public class WordDataList
+    {
+        public List<WordData> wordDataList;
+    }
+
 
     void Start()
     {
-        //correctResponse = "Jessica is sad";
-
-        ASRCanvas.gameObject.SetActive(false);
-
-        // NOTE: Locating DatabaseManager which should hopefully exist
-        dbManager = GameObject.Find("DatabaseManager");
-        databaseManager = dbManager.GetComponent<DatabaseManager>();
-
-        // NOTE: if dbManager does not exist, a dbmanagerspare should be created in emotional thermometer - since this is a temporary debug fix I will keep this brief
-        //if (dbManager == null)
-        //{
-
-
-        //    dbManagerSpare = GameObject.Find("DatabaseManagerSpare");
-        //    // dbManager = new GameObject();
-
-        //    databaseManager = dbManagerSpare.GetComponent<DatabaseManager>();
-
-        //    if (databaseManager != null)
-        //    {
-        //        return;
-        //    }
-        //    databaseManager = dbManagerSpare.AddComponent<DatabaseManager>();
-
-        //    databaseManager.ReInitializeDatabase();
-
-        //    string randomPID = GenerateRandomPID(5);
-        //    databaseManager.userId = randomPID;
-
-        //}
-        //else
-        //{
-        //    // Get the DatabaseManager component from the existing GameObject
-        //    databaseManager = dbManager.GetComponent<DatabaseManager>();
-        //}
-
-
-
-        StartCoroutine(textStreamerFunction(currentScene));
-
-
-    }
-
-    private string GenerateRandomPID(int length)
-    {
-        const string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        char[] result = new char[length];
-
-        for (int i = 0; i < length; i++)
+        // if this is a drawing type of scene - check button -> draw button
+        if (Array.Exists(drawingScenes, scene => scene == UnityEngine.SceneManagement.SceneManager.GetActiveScene().name))
         {
-            result[i] = characters[random.Next(characters.Length)];
+            isDrawingScene = true;
         }
 
-        return new string(result);
+        if (!isDrawingScene)
+        {
+            ASRCanvas.gameObject.SetActive(false);
+        }
+        
+        TextStreamAndAudio();
+
+        
     }
+
+    // Function to stream text and audio based on JSON data
+    public void TextStreamAndAudio()
+    {
+        // Check if both audioClip and jsonFile are assigned
+        if (audioClip == null || jsonFile == null)
+        {
+            Debug.LogError("Invalid audio clip or JSON file.");
+            return;
+        }
+
+        // Load the JSON data directly into a list of WordData
+        List<WordData> wordDataList = ParseJsonText(jsonFile.text);
+        //print(jsonFile.text);
+
+        // Check if word data is valid
+        if (wordDataList == null)
+        {
+            Debug.LogError("Invalid word data.");
+            return;
+        }
+
+        // Clear existing text
+        scenarioscene.text = "";
+
+        //print("near end of TextStream and Audio");
+
+        // Play the audio clip
+        StartCoroutine(PlayAudioWithText(audioClip, wordDataList));
+    }
+
+    // Audio timestamp matching function
+    private IEnumerator PlayAudioWithText(AudioClip audioClip, List<WordData> wordDataList)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
+        foreach (WordData wordData in wordDataList)
+        {
+            scenarioscene.text += wordData.word + " ";
+
+            // wait for the entire duration of the current word's audio -- debugging
+            //print("END: " + wordData.end);
+            //print("START: " + wordData.start);
+            //print("Difference: " + (wordData.end - wordData.start));
+
+            // needs buffer time - 0.5f, unity might lag
+            yield return new WaitForSeconds(wordData.end - wordData.start + delayTime);
+        }
+
+        // only after text streaming is done, show "jibo" button
+        jibo.gameObject.SetActive(true);
+
+    }
+
+    // Parse JSON data for timestamps
+    private List<WordData> ParseJsonText(string jsonText)
+    {
+        // Parse JSON data into a list of WordData objects
+        WordDataList wordDataListContainer = JsonUtility.FromJson<WordDataList>(jsonText);
+
+        if (wordDataListContainer != null && wordDataListContainer.wordDataList != null)
+        {
+            return wordDataListContainer.wordDataList;
+        }
+        else
+        {
+            Debug.LogError("Failed to parse JSON data.");
+            return null;
+        }
+    }
+
+
 
     void Update()
     {
-        //if (!canvasOn)
-        //{
-        //    //Show ASR Canvas with slight delay
-        //    StartCoroutine(ShowASRCanvas());
-        //    canvasOn = true;
-        //}
 
-
-        if (!sentMessage && whisper.finishedRecording)
+        if (!sentMessage && !isDrawingScene && whisper.finishedRecording)
         {
             //Show ASR Canvas with slight delay
             StartCoroutine(ShowASRCanvas());
@@ -156,54 +183,6 @@ public class ScenarioController : MonoBehaviour
 
     }
 
-    // text streaming
-    private IEnumerator textStreamerFunction(int currentScene)
-    {
-
-        // read scene TTS
-        tTSManager.SynthesizeAndPlay(sceneTexts[currentScene]);
-
-        // wait for model to synthesize text
-        yield return new WaitForSeconds(delayTime);
-
-        int currentIndex = 0;
-        string[] words = sceneTexts[currentScene].Replace("\\n", "\n").Split(' '); // split the scene text into words
-        // show the words with delay
-        while (currentIndex < words.Length)
-        {
-            scenario2scene.text += words[currentIndex];
-            scenario2scene.text += " ";
-            currentIndex++;
-            yield return new WaitForSeconds(wordDelay);
-        }
-        // only after text streaming is done, show "jibo" button
-        jibo.gameObject.SetActive(true);
-    }
-
-    // onclick of the "next" button
-    public void nextScene()
-    {
-        // NOTE: TEMPORARY Until Scenes are finalized
-        //SceneManager.LoadScene("Scenario3");
-
-        // ORIGINAL
-        next.gameObject.SetActive(false); // hide "next" button
-        jibo.gameObject.SetActive(false); // hide "jibo" button
-        // hide the prev image and show the next
-        sceneImages[currentScene].gameObject.SetActive(false);
-        currentScene = (currentScene + 1) % sceneImages.Length; // update the current scene
-        sceneImages[currentScene].gameObject.SetActive(true);
-        // hide the prev text and set it to an empty string
-        scenario2scene.gameObject.SetActive(false);
-        scenario2scene.text = "";
-        scenario2scene.gameObject.SetActive(true);
-        // hide the prev question and set it to an empty string
-        scenario2question.gameObject.SetActive(false);
-        scenario2question.text = "";
-        scenario2question.gameObject.SetActive(true);
-        // start streaming the next text
-        StartCoroutine(textStreamerFunction(currentScene));
-    }
 
     public void record()
     {
@@ -282,21 +261,18 @@ public class ScenarioController : MonoBehaviour
         }
 
 
-
-
-
         string scenarioName = "Scenario " + scenarioNumber.ToString();
 
         print(scenarioName);
 
-        // Send strategy message
+        // Send strategy message to firebase
         string response = whisper.childSpeech;
         print(response);
 
-        string prompt = "Given the scenario:" + "'" + sceneTexts[0] + "'" + "Please analyze the student's response stored in the following string:" + "[" + response + "]. Evaluate whether the response is correct, incorrect, or a non-response. If correct, confirm the emotional state expressed, considering the correct response: [" + correctResponse + "] Responses similar to [" + correctResponse + "] or using synonyms for [" + feelingType + "] are also considered correct, as long as the response mentions something similar to [" + feelingType + "], it is also considered correct. If the response is a non-response (e.g., 'I don't know,' 'I don't care,' etc.), classify it as 'non-response.' If incorrect, simply output 'incorrect.' Your only output text should consist of one word, and should be one of three choices ONLY: 'correct', 'incorrect', or 'non-response'";
+        string prompt = "Given the scenario:" + "'" + sceneText + "'" + "Please analyze the student's response stored in the following string:" + "[" + response + "]. Evaluate whether the response is correct, incorrect, or a non-response. If correct, confirm the emotional state expressed, considering the correct response: [" + correctResponse + "] Responses similar to [" + correctResponse + "] or using synonyms for [" + feelingType + "] are also considered correct, as long as the response mentions something similar to [" + feelingType + "], it is also considered correct. If the response is a non-response (e.g., 'I don't know,' 'I don't care,' etc.), classify it as 'non-response.' If incorrect, simply output 'incorrect.' Your only output text should consist of one word, and should be one of three choices ONLY: 'correct', 'incorrect', or 'non-response'";
         print("prompt: " + prompt);
-        //databaseManager.EmotionIdentified(emotion, "this is a placeholder");
-        databaseManager.AddScenarioSpeech(scenarioName, response);
+
+        DatabaseManager.Instance.AddScenarioSpeech(scenarioName, response);
 
 
         sentMessage = true;
@@ -310,7 +286,7 @@ public class ScenarioController : MonoBehaviour
     // GPT REQUEST function
     private async void SendRequest(string prompt)
     {
-        var openai = new OpenAIApi("KEY");
+        var openai = new OpenAIApi("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");
         var req = new CreateChatCompletionRequest
         {
             Model = "gpt-4",
@@ -324,10 +300,8 @@ public class ScenarioController : MonoBehaviour
         }
         };
 
-        //print("hell0");
         var res = await openai.CreateChatCompletion(req);
 
-        //print("bye");
         if (res.Choices != null && res.Choices.Count > 0)
         {
             var message = res.Choices[0].Message;
@@ -356,7 +330,6 @@ public class ScenarioController : MonoBehaviour
         if (childResponse == "correct")
         {
             // Handle correct response
-
             print("Correct response");
             print("JIBO: " + jiboCorrectResponse);
             //print("JIBO: You are right! I have also thought that the " + characterName + " is feeling " + feelingType + ". Why do you think the character is feeling this emotion? What might they be thinking?");
@@ -396,15 +369,29 @@ public class ScenarioController : MonoBehaviour
     private IEnumerator questionStreamerFunction(int currentScene)
     {
         int currentIndex = 0;
-        string[] words = sceneQuestions[currentScene].Split(' ');
+        string[] words = sceneQuestion.Split(' ');
         while (currentIndex < words.Length)
         {
-            scenario2question.text += words[currentIndex];
-            scenario2question.text += " ";
+            scenarioquestion.text += words[currentIndex];
+            scenarioquestion.text += " ";
             currentIndex++;
             yield return new WaitForSeconds(wordDelay);
         }
         // only after question streaming is done, show "next" button to show the next scene
-        next.gameObject.SetActive(true);
+        if (isDrawingScene)
+        {
+            drawBtn.gameObject.SetActive(true);
+        } else
+        {
+            next.gameObject.SetActive(true);
+        }
+        
+    }
+
+    public void draw()
+    {
+        // nextScene();
+        Debug.Log("Going to drawing screen");
+        SceneManager.LoadScene("Drawing");
     }
 }

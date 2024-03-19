@@ -30,15 +30,14 @@ public class DatabaseManager : MonoBehaviour
     public List<string> emotionStrategies;
     public string loginTime;
 
+    public static DatabaseManager Instance;
+
 
     private void Awake()
     {
         // NOTE: where Database Manager is set to dontdestroyonload
+        Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
 
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
@@ -49,6 +48,7 @@ public class DatabaseManager : MonoBehaviour
             {
                 FirebaseApp app = FirebaseApp.DefaultInstance;
                 reference = FirebaseDatabase.DefaultInstance.RootReference;
+                print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
 
                 // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
             }
@@ -60,9 +60,54 @@ public class DatabaseManager : MonoBehaviour
 
         });
 
+        //if (FirebaseApp.DefaultInstance.Options.DatabaseUrl == null)
+        //{
+        //    print("FirebaseApp.DefaultInstance.Options.DatabaseUrl is NULL" );
+        //}
+        //print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
+        //print("AWAKE????");
+
+
+    }
+
+    //private void Awake()
+    //{
+    //    Instance = this;
+    //    Debug.Log("DatabaseManager Awake");
+    //}
+
+    private void Start()
+    {
+
+        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    //FirebaseApp app = FirebaseApp.DefaultInstance;
+        //    //reference = FirebaseDatabase.DefaultInstance.RootReference;
+        //    //print("getting firebase reference");
+        //    if (task.IsCompleted && !task.IsFaulted)
+        //    {
+        //        FirebaseApp app = FirebaseApp.DefaultInstance;
+        //        reference = FirebaseDatabase.DefaultInstance.RootReference;
+        //        Debug.Log(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
+
+        //        // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
+        //    }
+        //    else
+        //    {
+        //        // Handle the error if Firebase initialization fails
+        //        Debug.LogError("Firebase initialization failed: " + task.Exception);
+        //    }
+
+        //});
+
 
         //auth = FirebaseAuth.DefaultInstance;
 
+    }
+
+    public DatabaseReference getRef()
+    {
+        return reference;
     }
 
 
@@ -77,7 +122,7 @@ public class DatabaseManager : MonoBehaviour
         Task<Firebase.DependencyStatus> dependencyStatusTask = FirebaseApp.CheckAndFixDependenciesAsync();
 
         yield return new WaitUntil(() => dependencyStatusTask.IsCompleted);
-
+        print("BYEE???");
         if (dependencyStatusTask.Result == Firebase.DependencyStatus.Available)
         {
             print("Firebase initialization successful");
@@ -86,9 +131,10 @@ public class DatabaseManager : MonoBehaviour
             reference = FirebaseDatabase.DefaultInstance.RootReference;
 
             // Now you can use the 'reference' or perform other actions dependent on Firebase initialization
-
+            print("HELLO???");
             if (!string.IsNullOrEmpty(userId))
             {
+                print("CREATING SESSION");
                 FetchUserData(userId);
                 StartCoroutine(CreateSession());
             }
@@ -106,6 +152,7 @@ public class DatabaseManager : MonoBehaviour
         //userId = input;
         FetchUserData(userId);
         //StartCoroutine(Sleep(4.0f));
+        print("CREATE SESSION AFTER INPUT");
         StartCoroutine(CreateSession());
         SceneManager.LoadScene("MainMenu");
     }
@@ -162,15 +209,19 @@ public class DatabaseManager : MonoBehaviour
     private void FetchUserData(string userId)
     {
         print("fetching");
+        print(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
         if (reference == null)
         {
             print("reference is null");
         }
+        print(userId);
+        //print(reference);
         reference.Child(userId).GetValueAsync().ContinueWithOnMainThread(task => {
             if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
             {
                 DataSnapshot snapshot = task.Result;
 
+                print("Snapshot");
                 if (snapshot.Exists)
                 {
 
@@ -250,13 +301,19 @@ public class DatabaseManager : MonoBehaviour
 
             print("sessionKey " + currentSessionKey);
             reference.Child(userId).Child(currentSessionKey).Child("DATETIME").SetValueAsync(loginTime);
+
+            ////added so that we can reference this elsewhere
+            //reference.Child(userId).Child(currentSessionKey).SetValueAsync(emotionStrategyMap);
         }
+    
     }
 
 
     public void EmotionIdentified(string emotion, string strategy)
     {
         //FetchUserData(userId);
+
+        //emotionStrategyMap = reference.
 
         // Add strategy to dictionary -> list of strategies for that emotion identified
         if (emotionStrategyMap == null)
@@ -271,6 +328,77 @@ public class DatabaseManager : MonoBehaviour
         reference.Child(userId).Child(currentSessionKey).Child(emotionKey).Child("Strategies").SetValueAsync(strategies);
 
     }
+
+    //public void EmotionIdentified(string emotion, string strategy)
+    //{
+    //    // FetchUserData(userId); // You might not need to call FetchUserData here, as it might have been called before when creating the session
+
+    //    // Assuming your data is stored at the path userId/currentSessionKey/DATETIME
+    //    //string path = $"{userId}/{currentSessionKey}";
+    //    string path = $"{userId}/{currentSessionKey}";
+
+    //    reference.Child(path).GetValueAsync().ContinueWithOnMainThread(task =>
+    //    {
+    //        if (task.IsCompleted && !task.IsCanceled && !task.IsFaulted)
+    //        {
+    //            DataSnapshot snapshot = task.Result;
+
+    //            if (snapshot.Exists)
+    //            {
+    //                // Deserialize the data from Firebase into your emotionStrategyMap dictionary
+    //                string json = snapshot.GetRawJsonValue();
+    //                emotionStrategyMap = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+
+    //                //// Ensure the dictionary is not null before adding the new strategy
+    //                //if (emotionStrategyMap == null)
+    //                //{
+    //                //    emotionStrategyMap = new Dictionary<string, List<string>>
+    //                //{
+    //                //    { "angry", new List<string>() },
+    //                //    { "sad", new List<string>() },
+    //                //    { "nervous", new List<string>() },
+    //                //    { "happy", new List<string>() },
+    //                //    { "calm", new List<string>() },
+    //                //};
+    //                //}
+
+    //                // Add strategy to dictionary -> list of strategies for that emotion identified
+    //                emotionStrategyMap[emotion].Add(strategy);
+
+    //                List<string> strategies = emotionStrategyMap[emotion];
+    //                string emotionKey = "Emotion Identified - " + emotion;
+    //                reference.Child(userId).Child(currentSessionKey).Child(emotionKey).Child("Strategies").SetValueAsync(strategies);
+
+    //                //// Update the data back to Firebase
+    //                //reference.Child(path).SetValueAsync(emotionStrategyMap);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogWarning("Data not found at path: " + path);
+
+    //                //// Ensure the dictionary is not null before adding the new strategy
+    //                //if (emotionStrategyMap == null)
+    //                //{
+    //                //    emotionStrategyMap = new Dictionary<string, List<string>>
+    //                //{
+    //                //    { "angry", new List<string>() },
+    //                //    { "sad", new List<string>() },
+    //                //    { "nervous", new List<string>() },
+    //                //    { "happy", new List<string>() },
+    //                //    { "calm", new List<string>() },
+    //                //};
+    //                //}
+
+    //                //reference.Child(path).
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("Failed to fetch data from Firebase: " + task.Exception);
+    //        }
+    //    });
+    //}
+
 
     public void AddScenarioSpeech(string scenarioName, string response)
     {

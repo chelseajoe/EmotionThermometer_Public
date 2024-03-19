@@ -13,13 +13,12 @@ using System.Collections;
 
 public class SaveBtnScript : MonoBehaviour
 {
-    public DatabaseManager databaseManager;
-    private GameObject dbManager;
-
+    public GameObject StatusCanvas;
+    public bool savedImage;
     void Start ()
     {
-        dbManager = GameObject.Find("DatabaseManager");
-        databaseManager = dbManager.GetComponent<DatabaseManager>();
+        StatusCanvas.SetActive(false);
+        savedImage = false;
     }
     
 
@@ -34,89 +33,94 @@ public class SaveBtnScript : MonoBehaviour
 
     private IEnumerator CaptureAndSaveScreenshot()
     {
-        // Capture the screenshot of the entire screen
-        yield return CaptureSceneScreenshot();
-
-        // Define the file path
-        //string filePath = Application.persistentDataPath + "/Assets/Screenshots/screenshot.png";
-
-        string filePath = "Assets/Screenshots/screenshot.png";
-
-        print(filePath);
-
-        // Wait until the file exists
-        while (!File.Exists(filePath))
+        if (!savedImage)
         {
-            print("hello");
-            yield return new WaitForSeconds(0.5f);
-            //yield return null;
+            savedImage = true;
+            // Capture the screenshot of the entire screen
+            yield return CaptureSceneScreenshot();
+
+            // Define the file path
+            //string filePath = Application.persistentDataPath + "Assets/Screenshots/screenshot.png";
+            string filePath = Application.persistentDataPath + "/Screenshot.png";
+
+            print(filePath);
+
+            // Wait until the file exists
+            while (!File.Exists(filePath))
+            {
+                print("hello");
+                yield return new WaitForSeconds(0.5f);
+                StatusCanvas.SetActive(true);
+                //yield return null;
+            }
+
+            byte[] bytes = File.ReadAllBytes(filePath);
+
+
+
+            // wait for screenshot to update -- not necessary unless large delay in build
+            //yield return new WaitForSeconds(1f);
+
+            print("2 seconds passed -- to wait for screenshot to load");
+
+            // Upload the saved image to Firebase Storage
+            UploadToFirebaseStorage(bytes);
+
+            // Clean up the temporary file
+            File.Delete(filePath);
+
+            // Go back to menu
+            SceneManager.LoadScene("ScenariosMenu");
+
         }
 
-        print("HIII");
-
-        byte[] bytes = File.ReadAllBytes(filePath);
-
-        print("BYTES" + bytes);
-
-        // Upload the saved image to Firebase Storage
-        UploadToFirebaseStorage(bytes);
-
-        //// Clean up the temporary file
-        //File.Delete(filePath);
-
-        // Load the desired scene after capturing the screenshot
-        SceneManager.LoadScene("ScenariosMenu");
     }
 
     private IEnumerator CaptureSceneScreenshot()
     {
-        //// Capture the entire screen, including UI
-        //ScreenCapture.CaptureScreenshot("scene_screenshot.png");
 
-        //print("CAPTURING SCREENSHOT");
+        //string folderPath = Application.persistentDataPath + "Assets/Screenshots/";
+
+        //// if this path does not exist yet, it will get created
+        //if (!System.IO.Directory.Exists(folderPath))
+
+        //    System.IO.Directory.CreateDirectory(folderPath);
+        //    print("folder does not exist and is being created");
+
+        //print("waiting to make directory?");
+        //yield return new WaitForSeconds(2.5f);
+
+        //var screenshotName = "screenshot.png";
+        //// takes the sceenshot, the "2" is for the scaled resolution, you can put this to 600 but it will take really long to scale the image up
+        //ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(folderPath, screenshotName), 2);
+        //Debug.Log(folderPath + screenshotName);
 
 
-        string folderPath = "Assets/Screenshots/"; // the path of your project folder
+        // Unity Editor needs different filepath than android build to save screenshot
+        string filePath = Application.persistentDataPath + "/Screenshot.png";
 
-        if (!System.IO.Directory.Exists(folderPath)) // if this path does not exist yet
-            System.IO.Directory.CreateDirectory(folderPath);  // it will get created
+#if UNITY_EDITOR
 
-        //var screenshotName =
-        //                        "Screenshot_" +
-        //                        System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss") + // puts the current time right into the screenshot name
-        //                        ".png"; // put youre favorite data format here
+        ScreenCapture.CaptureScreenshot(filePath, 2);
+#else
+        ScreenCapture.CaptureScreenshot("Screenshot.png", 2);
+#endif
 
-        var screenshotName = "screenshot.png";
-        ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(folderPath, screenshotName), 2); // takes the sceenshot, the "2" is for the scaled resolution, you can put this to 600 but it will take really long to scale the image up
-        Debug.Log(folderPath + screenshotName); // You get instant feedback in the console
+        //ScreenCapture.CaptureScreenshot("Screenshot.png", 2);
 
 
         // Wait for a frame to ensure the screenshot is taken
         yield return new WaitForSeconds(2.5f);
 
-        //// Define the file path
-        //string filePath = Application.persistentDataPath + "/scene_screenshot.png";
-
-        //// Wait until the file exists
-        //while (!File.Exists(filePath))
-        //{
-        //    yield return null;
-        //}
-
-        //byte[] bytes = File.ReadAllBytes(filePath);
-
-        //// Upload the saved image to Firebase Storage
-        //UploadToFirebaseStorage(bytes);
-
-        //// Clean up the temporary file
-        //File.Delete(filePath);
     }
 
     private void UploadToFirebaseStorage(byte[] bytes)
     {
-        string userId = databaseManager.userId;
-        string currentSessionKey = databaseManager.currentSessionKey;
-        string loginTime = databaseManager.loginTime;
+
+        string userId = DatabaseManager.Instance.userId;
+        string currentSessionKey = DatabaseManager.Instance.currentSessionKey;
+        string loginTime = DatabaseManager.Instance.loginTime;
+
         // Get a reference to the storage service, using the default Firebase App
         FirebaseStorage storage = FirebaseStorage.DefaultInstance;
 
@@ -124,27 +128,21 @@ public class SaveBtnScript : MonoBehaviour
         StorageReference storageRef =
             storage.GetReferenceFromUrl("gs://emotion-thermometer.appspot.com");
 
-        //// Create a root reference
-        //StorageReference storageRef = storage.RootReference;
-
-        // Create a reference to 'images/mountains.jpg'
-        //StorageReference screenshotImagesRef =
-        //    storageRef.Child("images/help.jpg");
+        string currentTime = System.DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
 
         StorageReference screenshotImagesRef =
-            storageRef.Child($"images/{userId}/{currentSessionKey}/scenario3/{loginTime}.jpg");
+            storageRef.Child($"images/{userId}/{currentSessionKey}/scenario3/{loginTime}/{currentTime}.jpg");
 
-        // Upload the file to the path "images/mountains.jpg"
         screenshotImagesRef.PutBytesAsync(bytes)
             .ContinueWith((Task<StorageMetadata> task) =>
             {
                 if (task.IsFaulted || task.IsCanceled)
                 {
                     Debug.Log(task.Exception.ToString());
-                    // Uh-oh, an error occurred!
                 }
                 else
                 {
+
                     // Metadata contains file metadata such as size, content-type, and md5hash.
                     StorageMetadata metadata = task.Result;
                     string md5Hash = metadata.Md5Hash;

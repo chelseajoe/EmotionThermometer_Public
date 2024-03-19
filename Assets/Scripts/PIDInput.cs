@@ -10,10 +10,14 @@ public class PIDInput : MonoBehaviour
     public checkBtnScript checkBtn;
     private GameObject dbManager;
 
+    public DatabaseManager databaseManager;
+
+
     void Start()
     {
         // NOTE: where DatabaseManager is searched for 
         dbManager = GameObject.Find("DatabaseManager");
+        databaseManager = DatabaseManager.Instance;
     }
 
     void Update()

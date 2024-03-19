@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1552399962}
   checkBtn: {fileID: 643426529}
+  databaseManager: {fileID: 0}
 --- !u!4 &151888147
 Transform:
   m_ObjectHideFlags: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
   dh: {fileID: 0}
   dragHandle: {fileID: 0}
   pidIsEntered: 0
+  confirmedOnce: 0
 --- !u!4 &643426530
 Transform:
   m_ObjectHideFlags: 0
@@ -1047,7 +1049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userId: 
+  sessionIdx: 0
+  currentSessionKey: 
+  latestSessionNumber: 0
   emotionStrategies: []
+  loginTime: 
 --- !u!4 &1868801456
 Transform:
   m_ObjectHideFlags: 0
